@@ -25,7 +25,7 @@ fn part1(input: &String) {
             }
             last_char = c;
         }
-        let mut contains_naughty_string = false;
+        let mut contains_naughty_string: bool;
         contains_naughty_string = test_string.contains("ab");
         contains_naughty_string = contains_naughty_string || test_string.contains("pq");
         contains_naughty_string = contains_naughty_string || test_string.contains("cd");
@@ -47,7 +47,7 @@ fn part2(input: &String) {
         let mut last_two: Vec<char> = vec!['_', '_'];
         let mut repeat = false;
         let mut last_char = '_';
-        let mut rep_string = String::from("");
+        let mut rep_string: String;
         let mut test1 = false;
 
         // last_two.remove(0);
@@ -55,7 +55,6 @@ fn part2(input: &String) {
 
             if !test1 {
                 rep_string = String::from(format!("{last_char}{c}"));
-                println!("{rep_string}");
                 test1 = match test_string[i+1..].find(rep_string.as_str()) {
                     Some(_) => true,
                     None => test1,
@@ -68,7 +67,6 @@ fn part2(input: &String) {
             last_two.push(c);
             last_two.remove(0);
             last_char = c;
-            println!("test1: {test1} test2 {repeat}");
         }
         if test1 && repeat {
             amount_of_nice_strings += 1;
