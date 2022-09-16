@@ -2,7 +2,7 @@ use std::fs;
 use std::cmp;
 
 pub fn run() {
-    println!("Day 3");
+    println!("Day 6");
     let content = fs::read_to_string("input/2015/day06.txt").expect("Wo Datei?");
     part1(&content);
     part2(&content);

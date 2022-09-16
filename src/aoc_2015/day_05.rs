@@ -1,7 +1,7 @@
 use std::fs;
 
 pub fn run() {
-    println!("Day 3");
+    println!("Day 5");
     let content = fs::read_to_string("input/2015/day05.txt").expect("Wo Datei?");
     part1(&content);
     part2(&content);
