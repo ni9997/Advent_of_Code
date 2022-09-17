@@ -1,11 +1,13 @@
 use std::fs;
 
+#[allow(dead_code)]
 pub fn run() {
     println!("Day 1");
     part1();
     part2();
 }
 
+#[allow(dead_code)]
 pub fn part1() {
     let contents = fs::read_to_string("input/2015/day01.txt").expect("Wo Datei?");
     let mut floor = 0;
@@ -19,6 +21,7 @@ pub fn part1() {
     println!("Final floor: {floor}");
 }
 
+#[allow(dead_code)]
 pub fn part2() {
     let contents = fs::read_to_string("input/2015/day01.txt").expect("Wo Datei?");
     let mut floor = 0;

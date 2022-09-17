@@ -1,6 +1,6 @@
-#[allow(unused_imports)]
-use md5::{self, Digest, digest::core_api::CoreWrapper};
+use md5::{self, Digest};
 
+#[allow(dead_code)]
 pub fn run() {
     println!("Day 4");
     let input = String::from("bgvyzdsv");
@@ -16,6 +16,7 @@ fn md5hash(x: &str) -> String {
     s
 }
 
+#[allow(dead_code)]
 #[allow(unused_variables)]
 fn part1(input: &String) {
     // let mut number = 0;
@@ -28,6 +29,7 @@ fn part1(input: &String) {
     println!("The number starting with five zeros: {number}");
 }
 
+#[allow(dead_code)]
 #[allow(unused_variables)]
 fn part2(input: &String) {
     // let mut number = 0;

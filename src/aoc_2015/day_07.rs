@@ -1,6 +1,8 @@
 use std::fs;
 use std::collections::HashMap;
 
+#[allow(dead_code)]
+#[allow(unused_variables)]
 pub fn run() {
     println!("Day 7");
     let content = fs::read_to_string("input/2015/day07.txt").expect("Wo Datei?");
@@ -17,6 +19,7 @@ pub fn run() {
     part2(&content);
 }
 
+#[allow(dead_code)]
 fn is_numeric(t: &str) -> bool {
     match t.parse::<u16>() {
         Ok(_) => true,
@@ -24,6 +27,7 @@ fn is_numeric(t: &str) -> bool {
     }
 }
 
+#[allow(dead_code)]
 fn part1(input: &String) {
     let lines = input.split("\n").collect::<Vec<&str>>();
     let mut state: HashMap<&str, u16> = HashMap::new();
@@ -133,6 +137,7 @@ fn part1(input: &String) {
     println!("a={}", state.get("a").unwrap());
 }
 
+#[allow(dead_code)]
 fn part2(input: &String) {
     let lines = input.split("\n").collect::<Vec<&str>>();
     let mut state: HashMap<&str, u16> = HashMap::new();

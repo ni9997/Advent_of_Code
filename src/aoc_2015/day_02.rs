@@ -1,6 +1,7 @@
 use std::fs;
 use std::cmp;
 
+#[allow(dead_code)]
 pub fn run() {
     println!("Day 2");
     let content = fs::read_to_string("input/2015/day02.txt").expect("Wo Datei?");
@@ -8,6 +9,7 @@ pub fn run() {
     part2(&content);
 }
 
+#[allow(dead_code)]
 fn part1(input: &String) {
     let mut amount = 0;
 
@@ -27,6 +29,7 @@ fn part1(input: &String) {
     println!("Total amount of wrapping paper needed: {amount}");
 }
 
+#[allow(dead_code)]
 fn part2(input: &String) {
     let mut amount = 0;
 

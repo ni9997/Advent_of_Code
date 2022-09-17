@@ -1,6 +1,7 @@
 use std::fs;
 use std::collections::HashMap;
 
+#[allow(dead_code)]
 pub fn run() {
     println!("Day 3");
     let content = fs::read_to_string("input/2015/day03.txt").expect("Wo Datei?");
@@ -8,6 +9,7 @@ pub fn run() {
     part2(&content);
 }
 
+#[allow(dead_code)]
 fn part1(input: &String) {
     let mut count_visited = 0;
     let mut visited_homes = HashMap::new();
@@ -36,6 +38,7 @@ fn part1(input: &String) {
     println!("Visited {count_visited} homes")
 }
 
+#[allow(dead_code)]
 fn part2(input: &String) {
     let mut count_visited = 0;
     let mut visited_homes = HashMap::new();
