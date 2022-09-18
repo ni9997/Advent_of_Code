@@ -11,23 +11,54 @@ pub fn run() {
 #[allow(dead_code)]
 fn part1(input: &String) {
 
+    // let processed = input.replace("\\\\", "a").replace("\\\"", "a").replace("\"", "");
+
     let mut total = 0;
-    let mut escaped = 0;
 
     for line in input.split("\n") {
 
-        for i in 0..line.chars().count() {
-            total += 1;
+        let chars = line.trim().chars().collect::<Vec<char>>();
 
+        let mut i = 0;
+
+        while i < chars.len() {
+            if *chars.get(i).unwrap() == '\\' &&  *chars.get(i+1).unwrap() == '\\' {
+                total += 1;
+                i += 1;
+            } else if *chars.get(i).unwrap() == '\\' &&  *chars.get(i+1).unwrap() == '"' {
+                total += 1;
+                i += 1;
+            } else if *chars.get(i).unwrap() == '\\' &&  *chars.get(i+1).unwrap() == 'x' {
+                i += 3;
+                total += 3;
+            } else if *chars.get(i).unwrap() == '"' {
+                total += 1
+            } else {
+                // total -=1;
+            }
+            i += 1;
         }
-
     }
 
-    println!("Total - escaped = {}", total-escaped);
+    println!("Total = {}", total);
     
 }
 
 #[allow(dead_code)]
 fn part2(input: &String) {
+    let mut total = 0;
+    for line in input.split("\n") {
+        let mut old = 0;
+        let mut new = 2;
+        let new_line = line.replace("\\", "\\\\").replace("\"", "\\\"");
+        for _i in new_line.chars() {
+            new += 1;
+        }
+        for _i in line.chars() {
+            old += 1;
+        }
+        total += new-old;
+    }
+    println!("{total}");
     
 }
