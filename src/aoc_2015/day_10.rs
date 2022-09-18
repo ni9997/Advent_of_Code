@@ -1,8 +1,6 @@
-use std::fs;
-
 #[allow(dead_code)]
 pub fn run() {
-    println!("Day 8");
+    println!("Day 10");
     let content = String::from("1113222113");
     part1(&content);
     part2(&content);
@@ -31,7 +29,7 @@ fn look_and_say(input: String) -> String {
 #[allow(dead_code)]
 fn part1(input: &String) {
     let mut temp: String = String::from(input);
-    for _i in 0..50 {
+    for _i in 0..40 {
         temp = look_and_say(temp);
     }
     // println!("{}", look_and_say(temp));
@@ -40,5 +38,10 @@ fn part1(input: &String) {
 
 #[allow(dead_code)]
 fn part2(input: &String) {
-    
+    let mut temp: String = String::from(input);
+    for _i in 0..50 {
+        temp = look_and_say(temp);
+    }
+    // println!("{}", look_and_say(temp));
+    println!("Length of out is {}", temp.len());
 }

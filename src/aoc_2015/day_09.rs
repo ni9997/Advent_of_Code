@@ -4,7 +4,7 @@ use itertools::Itertools;
 
 #[allow(dead_code)]
 pub fn run() {
-    println!("Day 8");
+    println!("Day 9");
     let content = fs::read_to_string("input/2015/day09.txt").expect("Wo Datei?");
     part1(&content);
     part2(&content);
