@@ -16,6 +16,7 @@ mod day_14;
 mod day_15;
 mod day_16;
 mod day_17;
+mod day_18;
 
 pub fn run() {
     println!("Starting Advent of Code 2015");
@@ -35,5 +36,6 @@ pub fn run() {
     // day_14::run();
     // day_15::run();
     // day_16::run();
-    day_17::run();
+    // day_17::run();
+    day_18::run();
 }

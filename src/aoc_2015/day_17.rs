@@ -2,7 +2,7 @@ use std::{fs};
 
 #[allow(dead_code)]
 pub fn run() {
-    println!("Day 16");
+    println!("Day 18");
     let content = fs::read_to_string("input/2015/day17.txt").expect("Wo Datei?");
     // let content = fs::read_to_string("input/2015/test.txt").expect("Wo Datei?");
     part1(&content);
