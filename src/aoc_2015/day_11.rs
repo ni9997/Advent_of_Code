@@ -22,7 +22,7 @@ fn increment_pw(pw: String) -> String {
     temp.into_iter().collect::<String>()
 }
 
-fn check_straight(pw: &String) -> bool {
+fn check_straight(pw: &str) -> bool {
     let mut current_straight: usize = 0;
     let mut last_char = '{';
     for c in pw.chars() {
@@ -39,11 +39,11 @@ fn check_straight(pw: &String) -> bool {
     false
 }
 
-fn check_chars(pw: &String) -> bool {
-    !pw.contains("i") && !pw.contains("o") && !pw.contains("l")  
+fn check_chars(pw: &str) -> bool {
+    !pw.contains('i') && !pw.contains('o') && !pw.contains('l')  
 }
 
-fn check_pairs(pw: &String) -> bool {
+fn check_pairs(pw: &str) -> bool {
     let mut last_char = '{';
     let mut found_first = false;
     for c in pw.chars() {

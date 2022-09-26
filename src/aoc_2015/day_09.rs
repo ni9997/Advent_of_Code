@@ -11,16 +11,16 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut stations: HashSet<&str> = HashSet::new();
     let mut graph: HashMap<(&str, &str), u32> = HashMap::new();
     let mut shortest_dist = u32::MAX;
 
-    for line in input.split("\n") {
-        let left = line.split("=").nth(1).unwrap().trim().parse::<u32>().unwrap();
-        let mut right = line.split("=").nth(0).unwrap().trim().split("to");
-        let one = right.nth(0).unwrap().trim();
-        let two = right.nth(0).unwrap().trim();
+    for line in input.split('\n') {
+        let left = line.split('=').nth(1).unwrap().trim().parse::<u32>().unwrap();
+        let mut right = line.split('=').next().unwrap().trim().split("to");
+        let one = right.next().unwrap().trim();
+        let two = right.next().unwrap().trim();
         graph.insert((one, two), left);
         graph.insert((two, one), left);
         // graph.insert((two, two), 0);
@@ -46,16 +46,16 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut stations: HashSet<&str> = HashSet::new();
     let mut graph: HashMap<(&str, &str), u32> = HashMap::new();
     let mut longest_dist = u32::MIN;
 
-    for line in input.split("\n") {
-        let left = line.split("=").nth(1).unwrap().trim().parse::<u32>().unwrap();
-        let mut right = line.split("=").nth(0).unwrap().trim().split("to");
-        let one = right.nth(0).unwrap().trim();
-        let two = right.nth(0).unwrap().trim();
+    for line in input.split('\n') {
+        let left = line.split('=').nth(1).unwrap().trim().parse::<u32>().unwrap();
+        let mut right = line.split('=').next().unwrap().trim().split("to");
+        let one = right.next().unwrap().trim();
+        let two = right.next().unwrap().trim();
         graph.insert((one, two), left);
         graph.insert((two, one), left);
         // graph.insert((two, two), 0);

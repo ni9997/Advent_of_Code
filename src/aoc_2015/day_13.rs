@@ -11,17 +11,17 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut guests: HashSet<&str> = HashSet::new();
     let mut graph: HashMap<(&str, &str), i32> = HashMap::new();
 
-    for x in input.split("\n") {
-        let mut s = x.split(" ");
-        let person1 = s.nth(0).unwrap().trim();
+    for x in input.split('\n') {
+        let mut s = x.split(' ');
+        let person1 = s.next().unwrap().trim();
 
         let value = match s.nth(1).unwrap() {
-            "gain" => s.nth(0).unwrap().parse::<i32>().unwrap(),
-            "lose" => -s.nth(0).unwrap().parse::<i32>().unwrap(),
+            "gain" => s.next().unwrap().parse::<i32>().unwrap(),
+            "lose" => -s.next().unwrap().parse::<i32>().unwrap(),
             _ => 0
         };
 
@@ -50,19 +50,19 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut guests: HashSet<&str> = HashSet::new();
     let mut graph: HashMap<(&str, &str), i32> = HashMap::new();
 
     guests.insert("Me");
 
-    for x in input.split("\n") {
-        let mut s = x.split(" ");
-        let person1 = s.nth(0).unwrap().trim();
+    for x in input.split('\n') {
+        let mut s = x.split(' ');
+        let person1 = s.next().unwrap().trim();
 
         let value = match s.nth(1).unwrap() {
-            "gain" => s.nth(0).unwrap().parse::<i32>().unwrap(),
-            "lose" => -s.nth(0).unwrap().parse::<i32>().unwrap(),
+            "gain" => s.next().unwrap().parse::<i32>().unwrap(),
+            "lose" => -s.next().unwrap().parse::<i32>().unwrap(),
             _ => 0
         };
 

@@ -11,7 +11,7 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut sum = 0;
     let test = Regex::new(r"\d+|-\d+").unwrap();
     for num in test.find_iter(input) {
@@ -27,9 +27,7 @@ fn sum_all(x: &Value) -> i64 {
             // println!("{:?}", temp);
             if temp.is_number() {
                 sum += temp.as_i64().unwrap();
-            } else if temp.is_object() {
-                sum += sum_all(temp);
-            } else if temp.is_array() {
+            } else if temp.is_object() || temp.is_array() {
                 sum += sum_all(temp);
             }
         }
@@ -42,9 +40,7 @@ fn sum_all(x: &Value) -> i64 {
                 if v.as_str().unwrap() == "red" {
                     red = true;
                 }
-            } else if x.is_object() {
-                sum += sum_all(v);
-            } else if x.is_array() {
+            } else if x.is_object() || x.is_array() {
                 sum += sum_all(v);
             } else if v.is_string() {
                 if v.as_str().unwrap() == "red" {
@@ -62,7 +58,7 @@ fn sum_all(x: &Value) -> i64 {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let test: Value = serde_json::from_str(input).unwrap();  
     println!("Without red: {:?}", sum_all(&test));  
 }

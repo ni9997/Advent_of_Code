@@ -27,7 +27,7 @@ fn look_and_say(input: String) -> String {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut temp: String = String::from(input);
     for _i in 0..40 {
         temp = look_and_say(temp);
@@ -37,7 +37,7 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut temp: String = String::from(input);
     for _i in 0..50 {
         temp = look_and_say(temp);

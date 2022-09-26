@@ -10,16 +10,16 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     
-    for (i, line) in input.split("\n").enumerate() {
+    for (i, line) in input.split('\n').enumerate() {
         let compounds = String::from(line).replace(format!("Sue {}:", i+1).as_str(), "");
         // println!("{}", line);
         // println!("{}", compounds);
         let mut found = true;
-        for compound in compounds.split(",") {
-            let key = compound.split(":").nth(0).unwrap().trim();
-            let value = compound.split(":").nth(1).unwrap().trim().parse::<u32>().unwrap();
+        for compound in compounds.split(',') {
+            let key = compound.split(':').next().unwrap().trim();
+            let value = compound.split(':').nth(1).unwrap().trim().parse::<u32>().unwrap();
             // println!("Key={key}. value={value}");
             match key {
                 "children" => {
@@ -63,16 +63,16 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
 
-    for (i, line) in input.split("\n").enumerate() {
+    for (i, line) in input.split('\n').enumerate() {
         let compounds = String::from(line).replace(format!("Sue {}:", i+1).as_str(), "");
         // println!("{}", line);
         // println!("{}", compounds);
         let mut found = true;
-        for compound in compounds.split(",") {
-            let key = compound.split(":").nth(0).unwrap().trim();
-            let value = compound.split(":").nth(1).unwrap().trim().parse::<u32>().unwrap();
+        for compound in compounds.split(',') {
+            let key = compound.split(':').next().unwrap().trim();
+            let value = compound.split(':').nth(1).unwrap().trim().parse::<u32>().unwrap();
             // println!("Key={key}. value={value}");
             match key {
                 "children" => {

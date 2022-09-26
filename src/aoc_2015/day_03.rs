@@ -1,3 +1,4 @@
+use std::collections::hash_map::Entry;
 use std::fs;
 use std::collections::HashMap;
 
@@ -10,7 +11,7 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut count_visited = 0;
     let mut visited_homes = HashMap::new();
     let mut x = 0;
@@ -27,19 +28,25 @@ fn part1(input: &String) {
             '<' => x -= 1,
             _ => panic!("Error: {c} is not supported")
         }
-        if visited_homes.contains_key(&(x, y)) {
+        if let Entry::Vacant(e) = visited_homes.entry((x, y)) {
+            e.insert(1);
+            count_visited += 1
+        } else {
             continue;
         }
-        else {
-            visited_homes.insert((x, y), 1);
-            count_visited += 1;
-        }
+        // if visited_homes.contains_key(&(x, y)) {
+        //     continue;
+        // }
+        // else {
+        //     visited_homes.insert((x, y), 1);
+        //     count_visited += 1;
+        // }
     }
     println!("Visited {count_visited} homes")
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut count_visited = 0;
     let mut visited_homes = HashMap::new();
     let mut x_santa = 0;
@@ -70,8 +77,12 @@ fn part2(input: &String) {
             '<' => x -= 1,
             _ => panic!("Error: {c} is not supported")
         }
-        if !visited_homes.contains_key(&(x, y)) {
-            visited_homes.insert((x, y), 1);
+        // if !visited_homes.contains_key(&(x, y)) {
+        //     visited_homes.insert((x, y), 1);
+        //     count_visited += 1;
+        // }
+        if let Entry::Vacant(e) = visited_homes.entry((x, y)) {
+            e.insert(1);
             count_visited += 1;
         }
         if i % 2 == 0 {

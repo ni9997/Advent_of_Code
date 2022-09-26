@@ -62,16 +62,16 @@ impl Set {
                 combinations += self.calc_possible_combinations(volumen-c.size, &mut temp, depth+1);
             }
         }  
-        return combinations;     
+        combinations     
     }
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
 
     let mut container: Vec<Container> = vec![];
 
-    for line in input.split("\n") {
+    for line in input.split('\n') {
         container.push(Container::new(line.parse::<u32>().unwrap()));
     }
     let mut set: Set = Set { container , min: u32::MAX, combination: vec![]};
@@ -80,10 +80,10 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut container: Vec<Container> = vec![];
 
-    for line in input.split("\n") {
+    for line in input.split('\n') {
         container.push(Container::new(line.parse::<u32>().unwrap()));
     }
     let mut set: Set = Set { container , min: u32::MAX, combination: vec![]};

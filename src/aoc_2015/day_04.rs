@@ -18,7 +18,7 @@ fn md5hash(x: &str) -> String {
 
 #[allow(dead_code)]
 #[allow(unused_variables)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     // let mut number = 0;
     // let mut s = format!("{input}{number}");
     // while !md5hash(s.as_str()).starts_with("00000") {
@@ -31,7 +31,7 @@ fn part1(input: &String) {
 
 #[allow(dead_code)]
 #[allow(unused_variables)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     // let mut number = 0;
     // let mut s = format!("{input}{number}");
     // while !md5hash(s.as_str()).starts_with("000000") {

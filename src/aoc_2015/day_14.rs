@@ -56,12 +56,12 @@ impl Reindeer {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
 
     let mut reindeers = vec![];
 
-    for line in input.split("\n") {
-        let mut temp = line.split(" ");
+    for line in input.split('\n') {
+        let mut temp = line.split(' ');
         let speed = temp.nth(3).unwrap().trim().parse::<u32>().unwrap();
         let run_dur = temp.nth(2).unwrap().trim().parse::<u32>().unwrap();
         let rest_dur = temp.nth(6).unwrap().trim().parse::<u32>().unwrap();
@@ -88,35 +88,34 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut reindeers = vec![];
 
-    for line in input.split("\n") {
-        let mut temp = line.split(" ");
+    for line in input.split('\n') {
+        let mut temp = line.split(' ');
         let speed = temp.nth(3).unwrap().trim().parse::<u32>().unwrap();
         let run_dur = temp.nth(2).unwrap().trim().parse::<u32>().unwrap();
         let rest_dur = temp.nth(6).unwrap().trim().parse::<u32>().unwrap();
         reindeers.push(Reindeer::new(rest_dur, run_dur, speed));
     }
 
-    let len = reindeers.len();
-
     for _i in 0..2503 {
         // if _i <= 200 {
         //     println!("{}: {:?}", _i, reindeers);
         // }
-        for i in 0..len {
-            reindeers[i].update();
+        for i in &mut reindeers {
+            i.update();
         }
+
         let mut longest:u32 = 0;
-        for i in 0..len {
-            if reindeers[i].distance > longest {
-                longest = reindeers[i].distance
+        for i in &reindeers {
+            if i.distance > longest {
+                longest = i.distance
             }
         }
-        for i in 0..len {
-            if reindeers[i].distance == longest {
-                reindeers[i].points += 1;
+        for i in reindeers.iter_mut() {
+            if i.distance == longest {
+                i.points += 1;
             }
         }
     }

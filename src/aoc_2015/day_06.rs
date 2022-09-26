@@ -10,12 +10,12 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
 
     let mut lights = [[0u8; 1000]; 1000];
 
-    for cmd in input.split("\n") {
-        let mut s = cmd.split(" ");
+    for cmd in input.split('\n') {
+        let mut s = cmd.split(' ');
         let mode = match s.next().unwrap() {
             "toggle" => 2,
             "turn" => {
@@ -29,12 +29,12 @@ fn part1(input: &String) {
             _ => -1,
         };
         let c1 = s.next().unwrap();
-        let c1_x = c1.split(",").nth(0).unwrap().parse::<i32>().unwrap();
-        let c1_y = c1.split(",").nth(1).unwrap().parse::<i32>().unwrap();
+        let c1_x = c1.split(',').next().unwrap().parse::<i32>().unwrap();
+        let c1_y = c1.split(',').nth(1).unwrap().parse::<i32>().unwrap();
         s.next();
         let c2 = s.next().unwrap();
-        let c2_x = c2.split(",").nth(0).unwrap().parse::<i32>().unwrap();
-        let c2_y = c2.split(",").nth(1).unwrap().parse::<i32>().unwrap();
+        let c2_x = c2.split(',').next().unwrap().parse::<i32>().unwrap();
+        let c2_y = c2.split(',').nth(1).unwrap().parse::<i32>().unwrap();
 
         for i in c1_x..c2_x+1 {
             for j in c1_y..c2_y+1 {
@@ -52,9 +52,9 @@ fn part1(input: &String) {
         }
     }
     let mut lit_lights = 0;
-    for i in 0..1000 {
-        for j in 0..1000 {
-            if lights[i][j] == 1 {
+    for i in lights {
+        for j in i {
+            if j == 1 {
                 lit_lights += 1;
             }
         }
@@ -63,12 +63,12 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
 
     let mut lights = [[0i64; 1000]; 1000];
 
-    for cmd in input.split("\n") {
-        let mut s = cmd.split(" ");
+    for cmd in input.split('\n') {
+        let mut s = cmd.split(' ');
         let mode = match s.next().unwrap() {
             "toggle" => 2,
             "turn" => {
@@ -82,12 +82,12 @@ fn part2(input: &String) {
             _ => -1,
         };
         let c1 = s.next().unwrap();
-        let c1_x = c1.split(",").nth(0).unwrap().parse::<i32>().unwrap();
-        let c1_y = c1.split(",").nth(1).unwrap().parse::<i32>().unwrap();
+        let c1_x = c1.split(',').next().unwrap().parse::<i32>().unwrap();
+        let c1_y = c1.split(',').nth(1).unwrap().parse::<i32>().unwrap();
         s.next();
         let c2 = s.next().unwrap();
-        let c2_x = c2.split(",").nth(0).unwrap().parse::<i32>().unwrap();
-        let c2_y = c2.split(",").nth(1).unwrap().parse::<i32>().unwrap();
+        let c2_x = c2.split(',').next().unwrap().parse::<i32>().unwrap();
+        let c2_y = c2.split(',').nth(1).unwrap().parse::<i32>().unwrap();
 
         for i in c1_x..c2_x+1 {
             for j in c1_y..c2_y+1 {
@@ -101,9 +101,9 @@ fn part2(input: &String) {
         }
     }
     let mut brightness = 0;
-    for i in 0..1000 {
-        for j in 0..1000 {
-            brightness += lights[i][j];
+    for i in lights {
+        for j in i {
+            brightness += j;
         }
     }
     println!("{brightness} brightness");  

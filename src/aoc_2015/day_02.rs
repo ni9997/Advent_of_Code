@@ -10,17 +10,17 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut amount = 0;
 
-    for ps in input.split("\n") {
-        if ps == "" {
+    for ps in input.split('\n') {
+        if ps.is_empty() {
             break;
         }
-        let mut size = ps.split("x");
-        let l = size.nth(0).unwrap().parse::<i32>().unwrap();
-        let w = size.nth(0).unwrap().parse::<i32>().unwrap();
-        let h = size.nth(0).unwrap().parse::<i32>().unwrap();
+        let mut size = ps.split('x');
+        let l = size.next().unwrap().parse::<i32>().unwrap();
+        let w = size.next().unwrap().parse::<i32>().unwrap();
+        let h = size.next().unwrap().parse::<i32>().unwrap();
         let side1 = l*w;
         let side2 = w*h;
         let side3 = h*l;
@@ -30,17 +30,17 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut amount = 0;
 
-    for ps in input.split("\n") {
-        if ps == "" {
+    for ps in input.split('\n') {
+        if ps.is_empty() {
             break;
         }
-        let mut size = ps.split("x");
-        let l = size.nth(0).unwrap().parse::<i32>().unwrap();
-        let w = size.nth(0).unwrap().parse::<i32>().unwrap();
-        let h = size.nth(0).unwrap().parse::<i32>().unwrap();
+        let mut size = ps.split('x');
+        let l = size.next().unwrap().parse::<i32>().unwrap();
+        let w = size.next().unwrap().parse::<i32>().unwrap();
+        let h = size.next().unwrap().parse::<i32>().unwrap();
         let mut dim = vec![l, w, h];
         dim.sort();
         amount += 2*dim[0] + 2*dim[1] + l*h*w;

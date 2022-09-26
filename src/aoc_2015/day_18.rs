@@ -45,12 +45,10 @@ fn animate(start_state: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
                         end_state[i as usize].push(false);
                     }
                 }
-                else {
-                    if light_on_neig == 3 {
-                        end_state[i as usize].push(true);
-                    } else {
-                        end_state[i as usize].push(false);
-                    }
+                else if light_on_neig == 3{
+                    end_state[i as usize].push(true);
+                } else {
+                    end_state[i as usize].push(false);
                 }
             }
         }
@@ -61,10 +59,10 @@ fn animate(start_state: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+fn part1(input: &str) {
     let mut state: Vec<Vec<bool>> = vec![];
 
-    for line in input.split("\n") {
+    for line in input.split('\n') {
         let mut line_state: Vec<bool> = vec![];
         for c in line.chars() {
             line_state.push(match c {
@@ -83,10 +81,9 @@ fn part1(input: &String) {
     let mut lights_on: u32 = 0;
     let height: usize = state.len();
     if height > 0 {
-        let width = state[0].len();
-        for i in 0..height {
-            for j in 0..width {
-                match state[i][j] {
+        for i in state {
+            for j in i {
+                match j {
                     true => {
                         lights_on += 1;
                     },
@@ -99,10 +96,10 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut state: Vec<Vec<bool>> = vec![];
 
-    for line in input.split("\n") {
+    for line in input.split('\n') {
         let mut line_state: Vec<bool> = vec![];
         for c in line.chars() {
             line_state.push(match c {
@@ -131,10 +128,9 @@ fn part2(input: &String) {
     let mut lights_on: u32 = 0;
     let height: usize = state.len();
     if height > 0 {
-        let width = state[0].len();
-        for i in 0..height {
-            for j in 0..width {
-                match state[i][j] {
+        for i in state {
+            for j in i {
+                match j {
                     true => {
                         lights_on += 1;
                     },

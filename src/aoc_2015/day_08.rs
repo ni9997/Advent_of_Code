@@ -9,13 +9,14 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
+#[allow(clippy::if_same_then_else)]
+fn part1(input: &str) {
 
     // let processed = input.replace("\\\\", "a").replace("\\\"", "a").replace("\"", "");
 
     let mut total = 0;
 
-    for line in input.split("\n") {
+    for line in input.split('\n') {
 
         let chars = line.trim().chars().collect::<Vec<char>>();
 
@@ -45,12 +46,12 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
+fn part2(input: &str) {
     let mut total = 0;
-    for line in input.split("\n") {
+    for line in input.split('\n') {
         let mut old = 0;
         let mut new = 2;
-        let new_line = line.replace("\\", "\\\\").replace("\"", "\\\"");
+        let new_line = line.replace('\\', "\\\\").replace('\"', "\\\"");
         for _i in new_line.chars() {
             new += 1;
         }

@@ -21,29 +21,27 @@ pub fn run() {
 
 #[allow(dead_code)]
 fn is_numeric(t: &str) -> bool {
-    match t.parse::<u16>() {
-        Ok(_) => true,
-        Err(_) => false,        
-    }
+    t.parse::<u16>().is_ok()
 }
 
 #[allow(dead_code)]
-fn part1(input: &String) {
-    let lines = input.split("\n").collect::<Vec<&str>>();
+#[allow(clippy::collapsible_else_if)]
+fn part1(input: &str) {
+    let lines = input.split('\n').collect::<Vec<&str>>();
     let mut state: HashMap<&str, u16> = HashMap::new();
 
     while !state.contains_key("a") {
         for line in lines.clone() {
             let mut x = line.split("->");
-            let left = x.nth(0).unwrap().trim();
-            let right = x.nth(0).unwrap().trim();
+            let left = x.next().unwrap().trim();
+            let right = x.next().unwrap().trim();
             if state.contains_key(right) {
                 continue;
             } else {
                 if left.contains("AND") {
                     let mut temp = left.split("AND");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -59,8 +57,8 @@ fn part1(input: &String) {
                     }
                 } else if left.contains("OR") {
                     let mut temp = left.split("OR");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -76,8 +74,8 @@ fn part1(input: &String) {
                     }                    
                 } else if left.contains("LSHIFT") {
                     let mut temp = left.split("LSHIFT");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -93,8 +91,8 @@ fn part1(input: &String) {
                     }                    
                 } else if left.contains("RSHIFT") {
                     let mut temp = left.split("RSHIFT");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -109,7 +107,7 @@ fn part1(input: &String) {
                         continue;
                     }                    
                 } else if left.contains("NOT") {
-                    let mut temp = left.split(" ");
+                    let mut temp = left.split(' ');
                     let ll = temp.nth(1).unwrap().trim();
                     if state.contains_key(ll) || is_numeric(ll){
                         let lv = match state.get(ll) {
@@ -120,16 +118,14 @@ fn part1(input: &String) {
                     } else {
                         continue;
                     }                    
+                } else if state.contains_key(left) || is_numeric(left){
+                    let lv = match state.get(left) {
+                        Some(i) => *i,
+                        None => left.parse::<u16>().unwrap(),
+                    };
+                    state.insert(right, lv);
                 } else {
-                    if state.contains_key(left) || is_numeric(left){
-                        let lv = match state.get(left) {
-                            Some(i) => *i,
-                            None => left.parse::<u16>().unwrap(),
-                        };
-                        state.insert(right, lv);
-                    } else {
-                        continue;
-                    }                   
+                    continue;                   
                 }
             }
         }
@@ -138,23 +134,24 @@ fn part1(input: &String) {
 }
 
 #[allow(dead_code)]
-fn part2(input: &String) {
-    let lines = input.split("\n").collect::<Vec<&str>>();
+#[allow(clippy::collapsible_else_if)]
+fn part2(input: &str) {
+    let lines = input.split('\n').collect::<Vec<&str>>();
     let mut state: HashMap<&str, u16> = HashMap::new();
     state.insert("b", 3176);
 
     while !state.contains_key("a") {
         for line in lines.clone() {
             let mut x = line.split("->");
-            let left = x.nth(0).unwrap().trim();
-            let right = x.nth(0).unwrap().trim();
+            let left = x.next().unwrap().trim();
+            let right = x.next().unwrap().trim();
             if state.contains_key(right) {
                 continue;
             } else {
                 if left.contains("AND") {
                     let mut temp = left.split("AND");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -170,8 +167,8 @@ fn part2(input: &String) {
                     }
                 } else if left.contains("OR") {
                     let mut temp = left.split("OR");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -187,8 +184,8 @@ fn part2(input: &String) {
                     }                    
                 } else if left.contains("LSHIFT") {
                     let mut temp = left.split("LSHIFT");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -204,8 +201,8 @@ fn part2(input: &String) {
                     }                    
                 } else if left.contains("RSHIFT") {
                     let mut temp = left.split("RSHIFT");
-                    let ll = temp.nth(0).unwrap().trim();
-                    let lr = temp.nth(0).unwrap().trim();
+                    let ll = temp.next().unwrap().trim();
+                    let lr = temp.next().unwrap().trim();
                     if (state.contains_key(ll) || is_numeric(ll)) &&  (state.contains_key(lr) || is_numeric(lr)) {
                         let lv = match state.get(ll) {
                             Some(i) => *i,
@@ -220,7 +217,7 @@ fn part2(input: &String) {
                         continue;
                     }                    
                 } else if left.contains("NOT") {
-                    let mut temp = left.split(" ");
+                    let mut temp = left.split(' ');
                     let ll = temp.nth(1).unwrap().trim();
                     if state.contains_key(ll) || is_numeric(ll){
                         let lv = match state.get(ll) {
@@ -231,16 +228,14 @@ fn part2(input: &String) {
                     } else {
                         continue;
                     }                    
+                } else if state.contains_key(left) || is_numeric(left){
+                    let lv = match state.get(left) {
+                        Some(i) => *i,
+                        None => left.parse::<u16>().unwrap(),
+                    };
+                    state.insert(right, lv);
                 } else {
-                    if state.contains_key(left) || is_numeric(left){
-                        let lv = match state.get(left) {
-                            Some(i) => *i,
-                            None => left.parse::<u16>().unwrap(),
-                        };
-                        state.insert(right, lv);
-                    } else {
-                        continue;
-                    }                   
+                    continue;                   
                 }
             }
         }
