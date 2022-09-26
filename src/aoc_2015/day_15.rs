@@ -1,4 +1,4 @@
-use std::{fs, cmp};
+use std::{cmp, fs};
 
 #[allow(dead_code)]
 pub fn run() {
@@ -16,12 +16,12 @@ fn part1(_input: &str) {
         for j in 0..100 {
             for k in 0..100 {
                 for l in 0..100 {
-                    if i+j+k+l == 100 {
-                        let capacity = cmp::max(0,i*2);
-                        let durability = cmp::max(0,j*5-l);
-                        let flavour = cmp::max(0,-i*2 -j*3+k*5);
-                        let texture = cmp::max(0,-k+l*5);
-                        let score = cmp::max(0, capacity*durability*flavour*texture);
+                    if i + j + k + l == 100 {
+                        let capacity = cmp::max(0, i * 2);
+                        let durability = cmp::max(0, j * 5 - l);
+                        let flavour = cmp::max(0, -i * 2 - j * 3 + k * 5);
+                        let texture = cmp::max(0, -k + l * 5);
+                        let score = cmp::max(0, capacity * durability * flavour * texture);
                         if score > max_score {
                             max_score = score;
                         }
@@ -40,12 +40,12 @@ fn part2(_input: &str) {
         for j in 0..100 {
             for k in 0..100 {
                 for l in 0..100 {
-                    if i+j+k+l == 100 && i*3+j*3+k*8+l*8 == 500 {
-                        let capacity = cmp::max(0,i*2);
-                        let durability = cmp::max(0,j*5-l);
-                        let flavour = cmp::max(0,-i*2 -j*3+k*5);
-                        let texture = cmp::max(0,-k+l*5);
-                        let score = cmp::max(0, capacity*durability*flavour*texture);
+                    if i + j + k + l == 100 && i * 3 + j * 3 + k * 8 + l * 8 == 500 {
+                        let capacity = cmp::max(0, i * 2);
+                        let durability = cmp::max(0, j * 5 - l);
+                        let flavour = cmp::max(0, -i * 2 - j * 3 + k * 5);
+                        let texture = cmp::max(0, -k + l * 5);
+                        let score = cmp::max(0, capacity * durability * flavour * texture);
                         if score > max_score {
                             max_score = score;
                         }

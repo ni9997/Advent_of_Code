@@ -1,4 +1,4 @@
-use std::{fs};
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -22,17 +22,21 @@ fn animate(start_state: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
                 let mut light_on_neig = 0;
                 for ii in -1..2 {
                     for jj in -1..2 {
-                        let test_i = i+ii;
-                        let test_j = j+jj;
-                        if test_i >= height || test_i < 0 || test_j < 0 || test_j >= width || (ii == 0 && jj == 0)  {
+                        let test_i = i + ii;
+                        let test_j = j + jj;
+                        if test_i >= height
+                            || test_i < 0
+                            || test_j < 0
+                            || test_j >= width
+                            || (ii == 0 && jj == 0)
+                        {
                             continue;
                         } else {
                             match start_state[test_i as usize][test_j as usize] {
                                 true => {
                                     light_on_neig += 1;
-                                },
-                                false => {
                                 }
+                                false => {}
                             }
                         }
                     }
@@ -44,8 +48,7 @@ fn animate(start_state: Vec<Vec<bool>>) -> Vec<Vec<bool>> {
                     } else {
                         end_state[i as usize].push(false);
                     }
-                }
-                else if light_on_neig == 3{
+                } else if light_on_neig == 3 {
                     end_state[i as usize].push(true);
                 } else {
                     end_state[i as usize].push(false);
@@ -68,11 +71,10 @@ fn part1(input: &str) {
             line_state.push(match c {
                 '.' => false,
                 '#' => true,
-                _ => panic!("Not a valid state")
+                _ => panic!("Not a valid state"),
             });
         }
         state.push(line_state);
-
     }
     for _i in 0..100 {
         state = animate(state);
@@ -86,7 +88,7 @@ fn part1(input: &str) {
                 match j {
                     true => {
                         lights_on += 1;
-                    },
+                    }
                     false => {}
                 }
             }
@@ -105,24 +107,23 @@ fn part2(input: &str) {
             line_state.push(match c {
                 '.' => false,
                 '#' => true,
-                _ => panic!("Not a valid state")
+                _ => panic!("Not a valid state"),
             });
         }
         state.push(line_state);
-
     }
     let height = state.len();
     let width = state[0].len();
     state[0][0] = true;
-    state[0][width-1] = true;
-    state[height-1][0] = true;
-    state[height-1][width-1] = true;
+    state[0][width - 1] = true;
+    state[height - 1][0] = true;
+    state[height - 1][width - 1] = true;
     for _i in 0..100 {
         state = animate(state);
         state[0][0] = true;
-        state[0][width-1] = true;
-        state[height-1][0] = true;
-        state[height-1][width-1] = true;
+        state[0][width - 1] = true;
+        state[height - 1][0] = true;
+        state[height - 1][width - 1] = true;
         // println!("{:?}", state);
     }
     let mut lights_on: u32 = 0;
@@ -133,12 +134,11 @@ fn part2(input: &str) {
                 match j {
                     true => {
                         lights_on += 1;
-                    },
+                    }
                     false => {}
                 }
             }
         }
     }
     println!("Lights on: {}", lights_on);
-
 }

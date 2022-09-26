@@ -11,7 +11,7 @@ pub fn run() {
 #[allow(dead_code)]
 fn part1(input: &str) {
     let mut amount_of_nice_strings = 0;
-    
+
     for test_string in input.split('\n') {
         // Test 1
         let mut vowels = 0;
@@ -44,9 +44,7 @@ fn part1(input: &str) {
 fn part2(input: &str) {
     let mut amount_of_nice_strings = 0;
 
-
     for test_string in input.split('\n') {
-
         let mut last_two: Vec<char> = vec!['_', '_'];
         let mut repeat = false;
         let mut last_char = '_';
@@ -55,10 +53,9 @@ fn part2(input: &str) {
 
         // last_two.remove(0);
         for (i, c) in test_string.chars().enumerate() {
-
             if !test1 {
                 rep_string = format!("{last_char}{c}");
-                test1 = match test_string[i+1..].find(rep_string.as_str()) {
+                test1 = match test_string[i + 1..].find(rep_string.as_str()) {
                     Some(_) => true,
                     None => test1,
                 };
@@ -74,7 +71,6 @@ fn part2(input: &str) {
         if test1 && repeat {
             amount_of_nice_strings += 1;
         }
-
     }
     println!("Count of nice rows: {amount_of_nice_strings}")
 }

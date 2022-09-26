@@ -18,26 +18,48 @@ mod day_16;
 mod day_17;
 mod day_18;
 mod day_19;
+mod day_20;
 
 pub fn run() {
     println!("Starting Advent of Code 2015");
-    // day_01::run();
-    // day_02::run();
-    // day_03::run();
-    // day_04::run();
-    // day_05::run();
-    // day_06::run();
-    // day_07::run();
-    // day_08::run();
-    // day_09::run();
-    // day_10::run();
-    // day_11::run();
-    // day_12::run();
-    // day_13::run();
-    // day_14::run();
-    // day_15::run();
-    // day_16::run();
-    // day_17::run();
-    // day_18::run();
+    #[cfg(feature = "2015_01")]
+    day_01::run();
+    #[cfg(feature = "2015_02")]
+    day_02::run();
+    #[cfg(feature = "2015_03")]
+    day_03::run();
+    #[cfg(feature = "2015_04")]
+    day_04::run();
+    #[cfg(feature = "2015_05")]
+    day_05::run();
+    #[cfg(feature = "2015_06")]
+    day_06::run();
+    #[cfg(feature = "2015_07")]
+    day_07::run();
+    #[cfg(feature = "2015_08")]
+    day_08::run();
+    #[cfg(feature = "2015_09")]
+    day_09::run();
+    #[cfg(feature = "2015_10")]
+    day_10::run();
+    #[cfg(feature = "2015_11")]
+    day_11::run();
+    #[cfg(feature = "2015_12")]
+    day_12::run();
+    #[cfg(feature = "2015_13")]
+    day_13::run();
+    #[cfg(feature = "2015_14")]
+    day_14::run();
+    #[cfg(feature = "2015_15")]
+    day_15::run();
+    #[cfg(feature = "2015_16")]
+    day_16::run();
+    #[cfg(feature = "2015_17")]
+    day_17::run();
+    #[cfg(feature = "2015_18")]
+    day_18::run();
+    #[cfg(feature = "2015_19")]
     day_19::run();
+    #[cfg(feature = "2015_20")]
+    day_20::run();
 }

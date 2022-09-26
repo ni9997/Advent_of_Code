@@ -1,6 +1,6 @@
-use std::fs;
 use regex::Regex;
-use serde_json::{Value};
+use serde_json::Value;
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -32,7 +32,7 @@ fn sum_all(x: &Value) -> i64 {
             }
         }
     } else if x.is_object() {
-        let mut red:bool = false;
+        let mut red: bool = false;
         for (_k, v) in x.as_object().unwrap() {
             if v.is_number() {
                 sum += v.as_i64().unwrap();
@@ -59,6 +59,6 @@ fn sum_all(x: &Value) -> i64 {
 
 #[allow(dead_code)]
 fn part2(input: &str) {
-    let test: Value = serde_json::from_str(input).unwrap();  
-    println!("Without red: {:?}", sum_all(&test));  
+    let test: Value = serde_json::from_str(input).unwrap();
+    println!("Without red: {:?}", sum_all(&test));
 }

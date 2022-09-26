@@ -1,5 +1,5 @@
-use std::fs;
 use std::cmp;
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -11,7 +11,6 @@ pub fn run() {
 
 #[allow(dead_code)]
 fn part1(input: &str) {
-
     let mut lights = [[0u8; 1000]; 1000];
 
     for cmd in input.split('\n') {
@@ -21,11 +20,10 @@ fn part1(input: &str) {
             "turn" => {
                 if s.next().unwrap() == "on" {
                     1
-                }
-                else {
+                } else {
                     0
                 }
-            },
+            }
             _ => -1,
         };
         let c1 = s.next().unwrap();
@@ -36,8 +34,8 @@ fn part1(input: &str) {
         let c2_x = c2.split(',').next().unwrap().parse::<i32>().unwrap();
         let c2_y = c2.split(',').nth(1).unwrap().parse::<i32>().unwrap();
 
-        for i in c1_x..c2_x+1 {
-            for j in c1_y..c2_y+1 {
+        for i in c1_x..c2_x + 1 {
+            for j in c1_y..c2_y + 1 {
                 lights[i as usize][j as usize] = match mode {
                     0 => 0,
                     1 => 1,
@@ -46,7 +44,7 @@ fn part1(input: &str) {
                         1 => 0,
                         _ => panic!(""),
                     },
-                    _ => panic!("")
+                    _ => panic!(""),
                 }
             }
         }
@@ -64,7 +62,6 @@ fn part1(input: &str) {
 
 #[allow(dead_code)]
 fn part2(input: &str) {
-
     let mut lights = [[0i64; 1000]; 1000];
 
     for cmd in input.split('\n') {
@@ -74,11 +71,10 @@ fn part2(input: &str) {
             "turn" => {
                 if s.next().unwrap() == "on" {
                     1
-                }
-                else {
+                } else {
                     0
                 }
-            },
+            }
             _ => -1,
         };
         let c1 = s.next().unwrap();
@@ -89,13 +85,13 @@ fn part2(input: &str) {
         let c2_x = c2.split(',').next().unwrap().parse::<i32>().unwrap();
         let c2_y = c2.split(',').nth(1).unwrap().parse::<i32>().unwrap();
 
-        for i in c1_x..c2_x+1 {
-            for j in c1_y..c2_y+1 {
+        for i in c1_x..c2_x + 1 {
+            for j in c1_y..c2_y + 1 {
                 lights[i as usize][j as usize] = match mode {
                     0 => cmp::max(0, lights[i as usize][j as usize] - 1),
                     1 => cmp::max(0, lights[i as usize][j as usize] + 1),
                     2 => cmp::max(0, lights[i as usize][j as usize] + 2),
-                    _ => panic!("")
+                    _ => panic!(""),
                 }
             }
         }
@@ -106,5 +102,5 @@ fn part2(input: &str) {
             brightness += j;
         }
     }
-    println!("{brightness} brightness");  
+    println!("{brightness} brightness");
 }

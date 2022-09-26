@@ -1,5 +1,5 @@
-use std::fs;
 use std::cmp;
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -21,10 +21,10 @@ fn part1(input: &str) {
         let l = size.next().unwrap().parse::<i32>().unwrap();
         let w = size.next().unwrap().parse::<i32>().unwrap();
         let h = size.next().unwrap().parse::<i32>().unwrap();
-        let side1 = l*w;
-        let side2 = w*h;
-        let side3 = h*l;
-        amount += 2*side1 + 2*side2 + 2*side3 + cmp::min(side1, cmp::min(side2, side3));
+        let side1 = l * w;
+        let side2 = w * h;
+        let side3 = h * l;
+        amount += 2 * side1 + 2 * side2 + 2 * side3 + cmp::min(side1, cmp::min(side2, side3));
     }
     println!("Total amount of wrapping paper needed: {amount}");
 }
@@ -43,8 +43,7 @@ fn part2(input: &str) {
         let h = size.next().unwrap().parse::<i32>().unwrap();
         let mut dim = vec![l, w, h];
         dim.sort();
-        amount += 2*dim[0] + 2*dim[1] + l*h*w;
-        
+        amount += 2 * dim[0] + 2 * dim[1] + l * h * w;
     }
 
     println!("Total amount of ribbon needed: {amount}");

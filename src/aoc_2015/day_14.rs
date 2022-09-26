@@ -1,4 +1,4 @@
-use std::{fs};
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -9,13 +9,11 @@ pub fn run() {
     part2(&content);
 }
 
-
 #[derive(Debug)]
 enum State {
     Running(u32),
-    Rest(u32)
+    Rest(u32),
 }
-
 
 #[derive(Debug)]
 struct Reindeer {
@@ -29,35 +27,41 @@ struct Reindeer {
 
 impl Reindeer {
     fn update(&mut self) {
-        self. state = match self.state {
+        self.state = match self.state {
             State::Running(i) => {
                 if i > 0 {
                     self.distance += self.speed;
-                    State::Running(i-1)
+                    State::Running(i - 1)
                 } else {
-                    State::Rest(self.rest_dur-1)
-                }
-            },
-            State::Rest(i) => {
-                if i > 0 {
-                    State::Rest(i-1)
-                } else {
-                    self.distance += self.speed;
-                    State::Running(self.run_dur-1)
+                    State::Rest(self.rest_dur - 1)
                 }
             }
-        };        
+            State::Rest(i) => {
+                if i > 0 {
+                    State::Rest(i - 1)
+                } else {
+                    self.distance += self.speed;
+                    State::Running(self.run_dur - 1)
+                }
+            }
+        };
     }
 
     fn new(rest_dur: u32, run_dur: u32, speed: u32) -> Reindeer {
         let state = State::Running(run_dur);
-        Reindeer { state, distance: 0, rest_dur, run_dur, speed, points: 0 }
+        Reindeer {
+            state,
+            distance: 0,
+            rest_dur,
+            run_dur,
+            speed,
+            points: 0,
+        }
     }
 }
 
 #[allow(dead_code)]
 fn part1(input: &str) {
-
     let mut reindeers = vec![];
 
     for line in input.split('\n') {
@@ -76,7 +80,7 @@ fn part1(input: &str) {
             r.update();
         }
     }
-    let mut longest:u32 = 0;
+    let mut longest: u32 = 0;
     for r in reindeers {
         println!("{:?}", r);
         if r.distance > longest {
@@ -84,7 +88,6 @@ fn part1(input: &str) {
         }
     }
     println!("Longest distance: {}", longest);
-    
 }
 
 #[allow(dead_code)]
@@ -107,7 +110,7 @@ fn part2(input: &str) {
             i.update();
         }
 
-        let mut longest:u32 = 0;
+        let mut longest: u32 = 0;
         for i in &reindeers {
             if i.distance > longest {
                 longest = i.distance
@@ -119,7 +122,7 @@ fn part2(input: &str) {
             }
         }
     }
-    let mut most_points:u32 = 0;
+    let mut most_points: u32 = 0;
     for r in reindeers {
         println!("{:?}", r);
         if r.points > most_points {

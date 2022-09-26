@@ -11,25 +11,23 @@ pub fn run() {
 #[allow(dead_code)]
 #[allow(clippy::if_same_then_else)]
 fn part1(input: &str) {
-
     // let processed = input.replace("\\\\", "a").replace("\\\"", "a").replace("\"", "");
 
     let mut total = 0;
 
     for line in input.split('\n') {
-
         let chars = line.trim().chars().collect::<Vec<char>>();
 
         let mut i = 0;
 
         while i < chars.len() {
-            if *chars.get(i).unwrap() == '\\' &&  *chars.get(i+1).unwrap() == '\\' {
+            if *chars.get(i).unwrap() == '\\' && *chars.get(i + 1).unwrap() == '\\' {
                 total += 1;
                 i += 1;
-            } else if *chars.get(i).unwrap() == '\\' &&  *chars.get(i+1).unwrap() == '"' {
+            } else if *chars.get(i).unwrap() == '\\' && *chars.get(i + 1).unwrap() == '"' {
                 total += 1;
                 i += 1;
-            } else if *chars.get(i).unwrap() == '\\' &&  *chars.get(i+1).unwrap() == 'x' {
+            } else if *chars.get(i).unwrap() == '\\' && *chars.get(i + 1).unwrap() == 'x' {
                 i += 3;
                 total += 3;
             } else if *chars.get(i).unwrap() == '"' {
@@ -42,7 +40,6 @@ fn part1(input: &str) {
     }
 
     println!("Total = {}", total);
-    
 }
 
 #[allow(dead_code)]
@@ -58,8 +55,7 @@ fn part2(input: &str) {
         for _i in line.chars() {
             old += 1;
         }
-        total += new-old;
+        total += new - old;
     }
     println!("{total}");
-    
 }

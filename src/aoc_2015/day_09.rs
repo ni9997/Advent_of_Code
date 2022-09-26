@@ -1,6 +1,6 @@
-use std::fs;
-use std::collections::{HashMap, HashSet};
 use itertools::Itertools;
+use std::collections::{HashMap, HashSet};
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -17,7 +17,13 @@ fn part1(input: &str) {
     let mut shortest_dist = u32::MAX;
 
     for line in input.split('\n') {
-        let left = line.split('=').nth(1).unwrap().trim().parse::<u32>().unwrap();
+        let left = line
+            .split('=')
+            .nth(1)
+            .unwrap()
+            .trim()
+            .parse::<u32>()
+            .unwrap();
         let mut right = line.split('=').next().unwrap().trim().split("to");
         let one = right.next().unwrap().trim();
         let two = right.next().unwrap().trim();
@@ -31,9 +37,9 @@ fn part1(input: &str) {
     for (i, x) in stations.iter().permutations(stations.len()).enumerate() {
         // println!("{:?}", x);
         let mut dist = 0;
-        for i in 0..x.len()-1 {
+        for i in 0..x.len() - 1 {
             let station1 = **x.get(i).unwrap();
-            let station2 = **x.get(i+1).unwrap();
+            let station2 = **x.get(i + 1).unwrap();
             // println!("{} to {}", station1, station2);
             dist += graph.get(&(station1, station2)).unwrap();
         }
@@ -52,7 +58,13 @@ fn part2(input: &str) {
     let mut longest_dist = u32::MIN;
 
     for line in input.split('\n') {
-        let left = line.split('=').nth(1).unwrap().trim().parse::<u32>().unwrap();
+        let left = line
+            .split('=')
+            .nth(1)
+            .unwrap()
+            .trim()
+            .parse::<u32>()
+            .unwrap();
         let mut right = line.split('=').next().unwrap().trim().split("to");
         let one = right.next().unwrap().trim();
         let two = right.next().unwrap().trim();
@@ -66,9 +78,9 @@ fn part2(input: &str) {
     for (i, x) in stations.iter().permutations(stations.len()).enumerate() {
         // println!("{:?}", x);
         let mut dist = 0;
-        for i in 0..x.len()-1 {
+        for i in 0..x.len() - 1 {
             let station1 = **x.get(i).unwrap();
-            let station2 = **x.get(i+1).unwrap();
+            let station2 = **x.get(i + 1).unwrap();
             // println!("{} to {}", station1, station2);
             dist += graph.get(&(station1, station2)).unwrap();
         }

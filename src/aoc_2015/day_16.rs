@@ -1,4 +1,4 @@
-use std::{fs};
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -11,106 +11,114 @@ pub fn run() {
 
 #[allow(dead_code)]
 fn part1(input: &str) {
-    
     for (i, line) in input.split('\n').enumerate() {
-        let compounds = String::from(line).replace(format!("Sue {}:", i+1).as_str(), "");
+        let compounds = String::from(line).replace(format!("Sue {}:", i + 1).as_str(), "");
         // println!("{}", line);
         // println!("{}", compounds);
         let mut found = true;
         for compound in compounds.split(',') {
             let key = compound.split(':').next().unwrap().trim();
-            let value = compound.split(':').nth(1).unwrap().trim().parse::<u32>().unwrap();
+            let value = compound
+                .split(':')
+                .nth(1)
+                .unwrap()
+                .trim()
+                .parse::<u32>()
+                .unwrap();
             // println!("Key={key}. value={value}");
             match key {
                 "children" => {
                     found = found && value == 3;
-                },
+                }
                 "cats" => {
                     found = found && value == 7;
-                },
+                }
                 "samoyeds" => {
                     found = found && value == 2;
-                },
+                }
                 "pomeranians" => {
                     found = found && value == 3;
-                },
+                }
                 "akitas" => {
                     found = found && value == 0;
-                },
+                }
                 "vizslas" => {
                     found = found && value == 0;
-                },
+                }
                 "goldfish" => {
                     found = found && value == 5;
-                },
+                }
                 "trees" => {
                     found = found && value == 3;
-                },
+                }
                 "cars" => {
                     found = found && value == 2;
-                },
+                }
                 "perfumes" => {
                     found = found && value == 1;
-                },
-                _ => panic!()
+                }
+                _ => panic!(),
             }
         }
         if found {
-            println!("Its Sue {}", i+1);
+            println!("Its Sue {}", i + 1);
         }
     }
-    
 }
 
 #[allow(dead_code)]
 fn part2(input: &str) {
-
     for (i, line) in input.split('\n').enumerate() {
-        let compounds = String::from(line).replace(format!("Sue {}:", i+1).as_str(), "");
+        let compounds = String::from(line).replace(format!("Sue {}:", i + 1).as_str(), "");
         // println!("{}", line);
         // println!("{}", compounds);
         let mut found = true;
         for compound in compounds.split(',') {
             let key = compound.split(':').next().unwrap().trim();
-            let value = compound.split(':').nth(1).unwrap().trim().parse::<u32>().unwrap();
+            let value = compound
+                .split(':')
+                .nth(1)
+                .unwrap()
+                .trim()
+                .parse::<u32>()
+                .unwrap();
             // println!("Key={key}. value={value}");
             match key {
                 "children" => {
                     found = found && value == 3;
-                },
+                }
                 "cats" => {
                     found = found && value > 7;
-                },
+                }
                 "samoyeds" => {
                     found = found && value == 2;
-                },
+                }
                 "pomeranians" => {
                     found = found && value < 3;
-                },
+                }
                 "akitas" => {
                     found = found && value == 0;
-                },
+                }
                 "vizslas" => {
                     found = found && value == 0;
-                },
+                }
                 "goldfish" => {
                     found = found && value < 5;
-                },
+                }
                 "trees" => {
                     found = found && value > 3;
-                },
+                }
                 "cars" => {
                     found = found && value == 2;
-                },
+                }
                 "perfumes" => {
                     found = found && value == 1;
-                },
-                _ => panic!()
+                }
+                _ => panic!(),
             }
         }
         if found {
-            println!("Its Sue {}", i+1);
+            println!("Its Sue {}", i + 1);
         }
     }
-    
 }

@@ -1,5 +1,8 @@
-use std::{fs, collections::{HashSet, HashMap}};
 use itertools::Itertools;
+use std::{
+    collections::{HashMap, HashSet},
+    fs,
+};
 
 #[allow(dead_code)]
 pub fn run() {
@@ -22,11 +25,11 @@ fn part1(input: &str) {
         let value = match s.nth(1).unwrap() {
             "gain" => s.next().unwrap().parse::<i32>().unwrap(),
             "lose" => -s.next().unwrap().parse::<i32>().unwrap(),
-            _ => 0
+            _ => 0,
         };
 
         let mut person2 = s.nth(6).unwrap().trim();
-        person2 = &person2[..person2.len()-1];
+        person2 = &person2[..person2.len() - 1];
         guests.insert(person1);
         guests.insert(person2);
         graph.insert((person1, person2), value);
@@ -36,11 +39,19 @@ fn part1(input: &str) {
 
     for comb in guests.iter().permutations(guests.len()) {
         // println!("{:?}", comb);
-        let mut happiness = *graph.get(&(*comb.first().unwrap(), *comb.last().unwrap())).unwrap();
-        happiness += *graph.get(&(*comb.last().unwrap(), *comb.first().unwrap())).unwrap();
-        for i in 0..comb.len()-1 {
-            happiness += graph.get(&(*comb.get(i).unwrap(), *comb.get(i+1).unwrap())).unwrap();
-            happiness += graph.get(&(*comb.get(i+1).unwrap(), *comb.get(i).unwrap())).unwrap();
+        let mut happiness = *graph
+            .get(&(*comb.first().unwrap(), *comb.last().unwrap()))
+            .unwrap();
+        happiness += *graph
+            .get(&(*comb.last().unwrap(), *comb.first().unwrap()))
+            .unwrap();
+        for i in 0..comb.len() - 1 {
+            happiness += graph
+                .get(&(*comb.get(i).unwrap(), *comb.get(i + 1).unwrap()))
+                .unwrap();
+            happiness += graph
+                .get(&(*comb.get(i + 1).unwrap(), *comb.get(i).unwrap()))
+                .unwrap();
         }
         if happiness > max_happiness {
             max_happiness = happiness;
@@ -63,11 +74,11 @@ fn part2(input: &str) {
         let value = match s.nth(1).unwrap() {
             "gain" => s.next().unwrap().parse::<i32>().unwrap(),
             "lose" => -s.next().unwrap().parse::<i32>().unwrap(),
-            _ => 0
+            _ => 0,
         };
 
         let mut person2 = s.nth(6).unwrap().trim();
-        person2 = &person2[..person2.len()-1];
+        person2 = &person2[..person2.len() - 1];
         guests.insert(person1);
         guests.insert(person2);
         graph.insert(("Me", person1), 0);
@@ -81,11 +92,19 @@ fn part2(input: &str) {
 
     for comb in guests.iter().permutations(guests.len()) {
         // println!("{:?}", comb);
-        let mut happiness = *graph.get(&(*comb.first().unwrap(), *comb.last().unwrap())).unwrap();
-        happiness += *graph.get(&(*comb.last().unwrap(), *comb.first().unwrap())).unwrap();
-        for i in 0..comb.len()-1 {
-            happiness += graph.get(&(*comb.get(i).unwrap(), *comb.get(i+1).unwrap())).unwrap();
-            happiness += graph.get(&(*comb.get(i+1).unwrap(), *comb.get(i).unwrap())).unwrap();
+        let mut happiness = *graph
+            .get(&(*comb.first().unwrap(), *comb.last().unwrap()))
+            .unwrap();
+        happiness += *graph
+            .get(&(*comb.last().unwrap(), *comb.first().unwrap()))
+            .unwrap();
+        for i in 0..comb.len() - 1 {
+            happiness += graph
+                .get(&(*comb.get(i).unwrap(), *comb.get(i + 1).unwrap()))
+                .unwrap();
+            happiness += graph
+                .get(&(*comb.get(i + 1).unwrap(), *comb.get(i).unwrap()))
+                .unwrap();
         }
         if happiness > max_happiness {
             max_happiness = happiness;

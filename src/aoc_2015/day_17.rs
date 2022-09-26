@@ -1,4 +1,4 @@
-use std::{fs};
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -23,7 +23,7 @@ impl Container {
 struct Set {
     container: Vec<Container>,
     min: u32,
-    combination: Vec<Vec<usize>>
+    combination: Vec<Vec<usize>>,
 }
 
 impl Set {
@@ -31,7 +31,12 @@ impl Set {
         self.calc_possible_combinations(volumen, &mut vec![], 0)
     }
 
-    fn calc_possible_combinations(&mut self, volumen: u32, used: &mut Vec<usize>, depth: u32) -> u32 {
+    fn calc_possible_combinations(
+        &mut self,
+        volumen: u32,
+        used: &mut Vec<usize>,
+        depth: u32,
+    ) -> u32 {
         // println!("{:?} remaining: {}", used, volumen);
         if self.container.len() == used.len() {
             return 0;
@@ -44,7 +49,7 @@ impl Set {
             let c = &self.container[i];
             // println!("Container: {} volumen: {}", c.size, volumen);
             if c.size > volumen {
-               continue;
+                continue;
             }
             if c.size == volumen {
                 // println!("{i} vol:{volumen}");
@@ -59,24 +64,27 @@ impl Set {
                 let mut temp = used.to_vec();
                 used.push(i);
                 temp.push(i);
-                combinations += self.calc_possible_combinations(volumen-c.size, &mut temp, depth+1);
+                combinations +=
+                    self.calc_possible_combinations(volumen - c.size, &mut temp, depth + 1);
             }
-        }  
-        combinations     
+        }
+        combinations
     }
 }
 
 #[allow(dead_code)]
 fn part1(input: &str) {
-
     let mut container: Vec<Container> = vec![];
 
     for line in input.split('\n') {
         container.push(Container::new(line.parse::<u32>().unwrap()));
     }
-    let mut set: Set = Set { container , min: u32::MAX, combination: vec![]};
+    let mut set: Set = Set {
+        container,
+        min: u32::MAX,
+        combination: vec![],
+    };
     println!("{} Combinations possible", set.possible_combinations(150));
-        
 }
 
 #[allow(dead_code)]
@@ -86,7 +94,15 @@ fn part2(input: &str) {
     for line in input.split('\n') {
         container.push(Container::new(line.parse::<u32>().unwrap()));
     }
-    let mut set: Set = Set { container , min: u32::MAX, combination: vec![]};
+    let mut set: Set = Set {
+        container,
+        min: u32::MAX,
+        combination: vec![],
+    };
     println!("{} Combinations possible", set.possible_combinations(150));
-    println!("Minimum number needed: {}. {} combinations possible", set.min, set.combination.len());
+    println!(
+        "Minimum number needed: {}. {} combinations possible",
+        set.min,
+        set.combination.len()
+    );
 }

@@ -1,6 +1,6 @@
 use std::collections::hash_map::Entry;
-use std::fs;
 use std::collections::HashMap;
+use std::fs;
 
 #[allow(dead_code)]
 pub fn run() {
@@ -26,7 +26,7 @@ fn part1(input: &str) {
             'v' => y -= 1,
             '>' => x += 1,
             '<' => x -= 1,
-            _ => panic!("Error: {c} is not supported")
+            _ => panic!("Error: {c} is not supported"),
         }
         if let Entry::Vacant(e) = visited_homes.entry((x, y)) {
             e.insert(1);
@@ -64,8 +64,7 @@ fn part2(input: &str) {
         if i % 2 == 0 {
             x = x_santa;
             y = y_santa;
-        }
-        else {
+        } else {
             x = x_robot;
             y = y_robot;
         }
@@ -75,7 +74,7 @@ fn part2(input: &str) {
             'v' => y -= 1,
             '>' => x += 1,
             '<' => x -= 1,
-            _ => panic!("Error: {c} is not supported")
+            _ => panic!("Error: {c} is not supported"),
         }
         // if !visited_homes.contains_key(&(x, y)) {
         //     visited_homes.insert((x, y), 1);
@@ -88,8 +87,7 @@ fn part2(input: &str) {
         if i % 2 == 0 {
             x_santa = x;
             y_santa = y;
-        }
-        else {
+        } else {
             x_robot = x;
             y_robot = y;
         }

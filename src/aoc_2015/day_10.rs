@@ -7,7 +7,6 @@ pub fn run() {
 }
 
 fn look_and_say(input: String) -> String {
-
     let mut chars: Vec<Vec<char>> = vec![];
     let mut cur_char = ' ';
     for c in input.chars() {
@@ -21,7 +20,10 @@ fn look_and_say(input: String) -> String {
     // println!("{:?}", chars);
     let mut x = String::from("");
     for b in chars {
-        x.insert_str(x.len(), format!("{}{}", b.len(), b.first().unwrap()).as_str());
+        x.insert_str(
+            x.len(),
+            format!("{}{}", b.len(), b.first().unwrap()).as_str(),
+        );
     }
     x
 }

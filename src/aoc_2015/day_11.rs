@@ -10,14 +10,14 @@ pub fn run() {
 fn increment_pw(pw: String) -> String {
     let mut temp: Vec<char> = pw.chars().collect::<Vec<char>>();
     // let temp_len = temp.len();
-    *temp.last_mut().unwrap() = char::from_u32((*temp.last().unwrap() as u32) +1).unwrap();
+    *temp.last_mut().unwrap() = char::from_u32((*temp.last().unwrap() as u32) + 1).unwrap();
     for j in 0..temp.len() {
-        let i = temp.len()-1 - j;
+        let i = temp.len() - 1 - j;
         // println!("{i}");
-        if temp[i] > 'z' && i >= 1{
+        if temp[i] > 'z' && i >= 1 {
             temp[i] = 'a';
-            temp[i-1] = char::from_u32((temp[i-1] as u32) +1).unwrap();
-        } 
+            temp[i - 1] = char::from_u32((temp[i - 1] as u32) + 1).unwrap();
+        }
     }
     temp.into_iter().collect::<String>()
 }
@@ -26,7 +26,7 @@ fn check_straight(pw: &str) -> bool {
     let mut current_straight: usize = 0;
     let mut last_char = '{';
     for c in pw.chars() {
-        if c as u32 == last_char as u32 +1 {
+        if c as u32 == last_char as u32 + 1 {
             current_straight += 1;
         } else {
             current_straight = 0;
@@ -40,7 +40,7 @@ fn check_straight(pw: &str) -> bool {
 }
 
 fn check_chars(pw: &str) -> bool {
-    !pw.contains('i') && !pw.contains('o') && !pw.contains('l')  
+    !pw.contains('i') && !pw.contains('o') && !pw.contains('l')
 }
 
 fn check_pairs(pw: &str) -> bool {
@@ -51,8 +51,9 @@ fn check_pairs(pw: &str) -> bool {
             found_first = true;
             last_char = '{';
             continue;
-        } else if c == last_char && found_first { // && c != first {
-            return true
+        } else if c == last_char && found_first {
+            // && c != first {
+            return true;
         }
         last_char = c;
     }
@@ -76,13 +77,23 @@ fn new_pw(input: &String) -> String {
 #[allow(dead_code)]
 fn part1(input: &String) {
     let pw = new_pw(input);
-    println!("{} {} {}", check_straight(&pw), check_chars(&pw), check_pairs(&pw));
+    println!(
+        "{} {} {}",
+        check_straight(&pw),
+        check_chars(&pw),
+        check_pairs(&pw)
+    );
     println!("Found the new password: {}", pw);
 }
 
 #[allow(dead_code)]
 fn part2(input: &String) {
     let pw = new_pw(&new_pw(input));
-    println!("{} {} {}", check_straight(&pw), check_chars(&pw), check_pairs(&pw));
-    println!("Found the new password: {}", pw);    
+    println!(
+        "{} {} {}",
+        check_straight(&pw),
+        check_chars(&pw),
+        check_pairs(&pw)
+    );
+    println!("Found the new password: {}", pw);
 }

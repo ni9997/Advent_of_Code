@@ -32,7 +32,7 @@ pub fn part2() {
             floor -= 1;
         }
         if floor < 0 {
-            let pos = i+1;
+            let pos = i + 1;
             println!("Position of entering basement: {pos}");
             break;
         }
