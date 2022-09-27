@@ -7,26 +7,51 @@ pub fn run() {
 }
 
 pub fn part1(input: &u32) -> usize {
-    for i in 0usize.. {
-        let mut presents = 0;
-        for elf in 1..i+1 {
-            if i % elf == 0 {
-                presents += elf * 10;
-            }
-        }
-        if presents >= *input as usize {
-            return i;
-        }
-        if i % 10000 == 0 {
-            println!("House {i} gets {presents}");
+
+    let n = input/10;
+
+    let mut presents = vec![0u32; n as usize +1];
+
+    for i in 1..(n +1) {
+        for j in (i..n +1).step_by(i as usize) {
+            presents[j as usize] += i*10 
         }
     }
-    panic!("No solution found and infinite loop exited lol");
+
+    // println!("{:?}", presents);
+
+    for (i, p) in presents.iter().enumerate() {
+        if p >= input {
+            return i;
+        }
+    }
+    panic!("No solution found.")
 }
 
 pub fn part2(input: &u32) -> usize {
-    panic!("Not implemented")
-}
+    let n = input/10;
+
+    let mut presents = vec![0u32; n as usize +100];
+
+    for i in 1..(n +1) {
+        let mut temp = 0;
+        for j in (i..n+1).step_by(i as usize) {
+            presents[j as usize] += i*11; 
+            temp += 1;
+            if temp >= 50 {
+                break;
+            }
+        }
+    }
+
+    // println!("{:?}", presents);
+
+    for (i, p) in presents.iter().enumerate() {
+        if p >= input {
+            return i;
+        }
+    }
+    panic!("No solution found.")}
 
 #[cfg(test)]
 mod tests {
