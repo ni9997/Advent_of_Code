@@ -1,20 +1,19 @@
 #[allow(dead_code)]
 pub fn run() {
-    println!("Day 19");
+    println!("Day 20");
     let input = 33100000u32;
     println!("The result of part 1 is: {}", part1(&input));
     println!("The result of part 2 is: {}", part2(&input));
 }
 
 pub fn part1(input: &u32) -> usize {
+    let n = input / 10;
 
-    let n = input/10;
+    let mut presents = vec![0u32; n as usize + 1];
 
-    let mut presents = vec![0u32; n as usize +1];
-
-    for i in 1..(n +1) {
-        for j in (i..n +1).step_by(i as usize) {
-            presents[j as usize] += i*10 
+    for i in 1..(n + 1) {
+        for j in (i..n + 1).step_by(i as usize) {
+            presents[j as usize] += i * 10
         }
     }
 
@@ -29,14 +28,14 @@ pub fn part1(input: &u32) -> usize {
 }
 
 pub fn part2(input: &u32) -> usize {
-    let n = input/10;
+    let n = input / 10;
 
-    let mut presents = vec![0u32; n as usize +100];
+    let mut presents = vec![0u32; n as usize + 100];
 
-    for i in 1..(n +1) {
+    for i in 1..(n + 1) {
         let mut temp = 0;
-        for j in (i..n+1).step_by(i as usize) {
-            presents[j as usize] += i*11; 
+        for j in (i..n + 1).step_by(i as usize) {
+            presents[j as usize] += i * 11;
             temp += 1;
             if temp >= 50 {
                 break;
@@ -51,7 +50,8 @@ pub fn part2(input: &u32) -> usize {
             return i;
         }
     }
-    panic!("No solution found.")}
+    panic!("No solution found.")
+}
 
 #[cfg(test)]
 mod tests {
