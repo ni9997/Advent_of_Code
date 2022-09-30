@@ -1,5 +1,3 @@
-use std::cmp;
-
 #[allow(dead_code)]
 pub fn run() {
     println!("Day 21");
