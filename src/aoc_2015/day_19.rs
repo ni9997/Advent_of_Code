@@ -86,6 +86,7 @@ pub fn part2(input: &str) -> usize {
     count
 }
 
+#[cfg(feature = "2015_19")]
 #[cfg(test)]
 mod tests {
     use super::*;

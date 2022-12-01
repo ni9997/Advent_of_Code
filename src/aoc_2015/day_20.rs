@@ -53,6 +53,7 @@ pub fn part2(input: &u32) -> usize {
     panic!("No solution found.")
 }
 
+#[cfg(feature = "2015_01")]
 #[cfg(test)]
 mod tests {
     use super::*;

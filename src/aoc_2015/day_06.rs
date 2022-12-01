@@ -10,6 +10,7 @@ pub fn run() {
 }
 
 #[allow(dead_code)]
+#[allow(clippy::bool_to_int_with_if)]
 fn part1(input: &str) {
     let mut lights = [[0u8; 1000]; 1000];
 
@@ -61,6 +62,7 @@ fn part1(input: &str) {
 }
 
 #[allow(dead_code)]
+#[allow(clippy::bool_to_int_with_if)]
 fn part2(input: &str) {
     let mut lights = [[0i64; 1000]; 1000];
 
