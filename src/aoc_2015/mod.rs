@@ -1,24 +1,45 @@
 #[allow(unused_variables)]
+#[cfg(feature = "2015_01")]
 mod day_01;
+#[cfg(feature = "2015_02")]
 mod day_02;
+#[cfg(feature = "2015_03")]
 mod day_03;
+#[cfg(feature = "2015_04")]
 mod day_04;
+#[cfg(feature = "2015_05")]
 mod day_05;
+#[cfg(feature = "2015_06")]
 mod day_06;
+#[cfg(feature = "2015_07")]
 mod day_07;
+#[cfg(feature = "2015_08")]
 mod day_08;
+#[cfg(feature = "2015_09")]
 mod day_09;
+#[cfg(feature = "2015_10")]
 mod day_10;
+#[cfg(feature = "2015_11")]
 mod day_11;
+#[cfg(feature = "2015_12")]
 mod day_12;
+#[cfg(feature = "2015_13")]
 mod day_13;
+#[cfg(feature = "2015_14")]
 mod day_14;
+#[cfg(feature = "2015_15")]
 mod day_15;
+#[cfg(feature = "2015_16")]
 mod day_16;
+#[cfg(feature = "2015_17")]
 mod day_17;
+#[cfg(feature = "2015_18")]
 mod day_18;
+#[cfg(feature = "2015_19")]
 mod day_19;
+#[cfg(feature = "2015_20")]
 mod day_20;
+#[cfg(feature = "2015_21")]
 mod day_21;
 
 pub fn run() {
