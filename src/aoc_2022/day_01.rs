@@ -37,7 +37,6 @@ pub fn part2(input: &str) -> u32 {
     calories[calories.len() - 3..].iter().sum()
 }
 
-#[cfg(feature = "2022_01")]
 #[cfg(test)]
 mod tests {
     use super::*;
