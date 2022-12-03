@@ -39,7 +39,7 @@ pub fn part2(input: &str) -> i32 {
     let mut total_sum = 0;
     let mut bps = input.split('\n');
 
-    for i in 0..input.split('\n').count() / 3 {
+    for _ in 0..input.split('\n').count() / 3 {
         let mut found = false;
         // println!("{:?}", i);
         let f: Vec<char> = bps.next().unwrap().chars().collect();
