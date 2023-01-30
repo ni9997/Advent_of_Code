@@ -10,8 +10,8 @@ pub fn run() {
 
 pub fn part1(input: &str) -> String {
     let mut temp = input.split("\n\n");
-    let init = temp.nth(0).unwrap();
-    let moves = temp.nth(0).unwrap();
+    let init = temp.next().unwrap();
+    let moves = temp.next().unwrap();
 
     let mut stacks: Vec<Vec<char>> = vec![];
 
@@ -59,8 +59,8 @@ pub fn part1(input: &str) -> String {
 
 pub fn part2(input: &str) -> String {
     let mut temp = input.split("\n\n");
-    let init = temp.nth(0).unwrap();
-    let moves = temp.nth(0).unwrap();
+    let init = temp.next().unwrap();
+    let moves = temp.next().unwrap();
 
     let mut stacks: Vec<Vec<char>> = vec![];
 

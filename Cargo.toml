@@ -74,3 +74,4 @@ serde_json = { version = "1.0.85", optional = true}
 2022_03 = ["2022_base"]
 2022_04 = ["2022_base"]
 2022_05 = ["2022_base"]
+2022_06 = ["2022_base"]
