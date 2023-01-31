@@ -12,14 +12,16 @@ pub fn part1(input: &str) -> i32 {
     let mut total = 0;
     for pairs in input.split('\n') {
         let mut pair_split = pairs.split(',');
-        let mut left= pair_split.next().unwrap().split('-');
+        let mut left = pair_split.next().unwrap().split('-');
         let left_min = left.next().unwrap().parse::<i32>().unwrap();
         let left_max = left.next().unwrap().parse::<i32>().unwrap();
         let mut right = pair_split.next().unwrap().split('-');
         let right_min = right.next().unwrap().parse::<i32>().unwrap();
         let right_max = right.next().unwrap().parse::<i32>().unwrap();
-        
-        if (left_min <= right_min && left_max >= right_max) || (right_min <= left_min && right_max >= left_max){
+
+        if (left_min <= right_min && left_max >= right_max)
+            || (right_min <= left_min && right_max >= left_max)
+        {
             total += 1;
         }
     }
@@ -30,14 +32,16 @@ pub fn part2(input: &str) -> i32 {
     let mut total = 0;
     for pairs in input.split('\n') {
         let mut pair_split = pairs.split(',');
-        let mut left= pair_split.next().unwrap().split('-');
+        let mut left = pair_split.next().unwrap().split('-');
         let left_min = left.next().unwrap().parse::<i32>().unwrap();
         let left_max = left.next().unwrap().parse::<i32>().unwrap();
         let mut right = pair_split.next().unwrap().split('-');
         let right_min = right.next().unwrap().parse::<i32>().unwrap();
         let right_max = right.next().unwrap().parse::<i32>().unwrap();
-        
-        if (left_min <= right_max && left_max >= right_min) || (right_min <= left_max && right_max >= left_min) {
+
+        if (left_min <= right_max && left_max >= right_min)
+            || (right_min <= left_max && right_max >= left_min)
+        {
             total += 1;
         }
     }

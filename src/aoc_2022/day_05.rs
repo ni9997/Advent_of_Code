@@ -16,9 +16,9 @@ pub fn part1(input: &str) -> String {
     let mut stacks: Vec<Vec<char>> = vec![];
 
     let mut layers = init.lines().rev();
-    let  fst_layer = layers.next().unwrap();
+    let fst_layer = layers.next().unwrap();
 
-    let col = ((fst_layer.len()-3)/4)+1;
+    let col = ((fst_layer.len() - 3) / 4) + 1;
     for _ in 0..col {
         stacks.push(vec![]);
     }
@@ -27,7 +27,7 @@ pub fn part1(input: &str) -> String {
         // println!("{:?}", layer);
         // println!("{:?}", layer.len());
         for i in 0..col {
-            let c = layer.chars().nth(1+i*4).unwrap();
+            let c = layer.chars().nth(1 + i * 4).unwrap();
             if c != ' ' {
                 stacks[i].push(c);
             }
@@ -36,19 +36,17 @@ pub fn part1(input: &str) -> String {
 
     // println!("{:?}", stacks);
 
-    
     for m in moves.lines() {
         let mut cmd = m.split(' ');
         let amount = cmd.nth(1).unwrap().parse::<usize>().unwrap();
-        let origin = cmd.nth(1).unwrap().parse::<usize>().unwrap()-1;
-        let target = cmd.nth(1).unwrap().parse::<usize>().unwrap()-1;
+        let origin = cmd.nth(1).unwrap().parse::<usize>().unwrap() - 1;
+        let target = cmd.nth(1).unwrap().parse::<usize>().unwrap() - 1;
         // println!("move {} from {} to {}", amount, origin, target);
         for _ in 0..amount {
             let c = stacks[origin].pop().unwrap();
             stacks[target].push(c);
         }
     }
-
 
     let mut top_crates = String::new();
     for mut s in stacks {
@@ -65,9 +63,9 @@ pub fn part2(input: &str) -> String {
     let mut stacks: Vec<Vec<char>> = vec![];
 
     let mut layers = init.lines().rev();
-    let  fst_layer = layers.next().unwrap();
+    let fst_layer = layers.next().unwrap();
 
-    let col = ((fst_layer.len()-3)/4)+1;
+    let col = ((fst_layer.len() - 3) / 4) + 1;
     for _ in 0..col {
         stacks.push(vec![]);
     }
@@ -76,7 +74,7 @@ pub fn part2(input: &str) -> String {
         // println!("{:?}", layer);
         // println!("{:?}", layer.len());
         for i in 0..col {
-            let c = layer.chars().nth(1+i*4).unwrap();
+            let c = layer.chars().nth(1 + i * 4).unwrap();
             if c != ' ' {
                 stacks[i].push(c);
             }
@@ -85,12 +83,11 @@ pub fn part2(input: &str) -> String {
 
     // println!("{:?}", stacks);
 
-    
     for m in moves.lines() {
         let mut cmd = m.split(' ');
         let amount = cmd.nth(1).unwrap().parse::<usize>().unwrap();
-        let origin = cmd.nth(1).unwrap().parse::<usize>().unwrap()-1;
-        let target = cmd.nth(1).unwrap().parse::<usize>().unwrap()-1;
+        let origin = cmd.nth(1).unwrap().parse::<usize>().unwrap() - 1;
+        let target = cmd.nth(1).unwrap().parse::<usize>().unwrap() - 1;
         // println!("move {} from {} to {}", amount, origin, target);
         let mut storage = vec![];
         for _ in 0..amount {
@@ -101,7 +98,6 @@ pub fn part2(input: &str) -> String {
             stacks[target].push(*c);
         }
     }
-
 
     let mut top_crates = String::new();
     for mut s in stacks {
