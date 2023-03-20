@@ -12,7 +12,6 @@ pub fn run() {
 }
 
 pub fn part1(input: &str) -> usize {
-
     let mut grid = vec![];
 
     for line in input.split('\n') {
@@ -23,10 +22,10 @@ pub fn part1(input: &str) -> usize {
         grid.push(horizontal);
     }
 
-    let mut total_visible: usize = 2*grid.len()+2*(grid[0].len()-2);
+    let mut total_visible: usize = 2 * grid.len() + 2 * (grid[0].len() - 2);
 
-    for i in 1..grid.len()-1 {
-        for j in 1..grid[0].len()-1 {
+    for i in 1..grid.len() - 1 {
+        for j in 1..grid[0].len() - 1 {
             // println!("shape: {},{}, x:{} y:{}", grid.len(), grid[0].len(), j, i);
             let height = grid[i][j];
             let mut visible: bool;
@@ -42,7 +41,7 @@ pub fn part1(input: &str) -> usize {
 
             // Check right
             let mut one_bigger = false;
-            for x in j+1..grid[i].len() {
+            for x in j + 1..grid[i].len() {
                 if grid[i][x] >= height {
                     one_bigger = true;
                     break;
@@ -62,7 +61,7 @@ pub fn part1(input: &str) -> usize {
 
             //Check bottom
             let mut one_bigger = false;
-            for y in i+1..grid.len() {
+            for y in i + 1..grid.len() {
                 if grid[y][j] >= height {
                     one_bigger = true;
                     break;
@@ -80,7 +79,6 @@ pub fn part1(input: &str) -> usize {
 }
 
 pub fn part2(input: &str) -> u32 {
-
     let mut grid = vec![];
 
     for line in input.split('\n') {
@@ -93,14 +91,14 @@ pub fn part2(input: &str) -> u32 {
 
     let mut heighest_scenic_score: u32 = 0;
 
-    for i in 1..grid.len()-1 {
-        for j in 1..grid[0].len()-1 {
+    for i in 1..grid.len() - 1 {
+        for j in 1..grid[0].len() - 1 {
             // println!("shape: {},{}, x:{} y:{}", grid.len(), grid[0].len(), j, i);
             let height = grid[i][j];
             let mut scenic_score: u32 = 1;
 
             let mut distance = 0;
-            
+
             // Check left
             for x in (0..j).rev() {
                 distance += 1;
@@ -113,7 +111,7 @@ pub fn part2(input: &str) -> u32 {
 
             distance = 0;
             // Check right
-            for x in j+1..grid[i].len() {
+            for x in j + 1..grid[i].len() {
                 distance += 1;
                 if grid[i][x] >= height {
                     break;
@@ -135,7 +133,7 @@ pub fn part2(input: &str) -> u32 {
 
             distance = 0;
             //Check bottom
-            for y in i+1..grid.len() {
+            for y in i + 1..grid.len() {
                 distance += 1;
                 if grid[y][j] >= height {
                     break;
