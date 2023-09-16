@@ -17,6 +17,8 @@ mod day_07;
 mod day_08;
 #[cfg(feature = "2022_09")]
 mod day_09;
+#[cfg(feature = "2022_10")]
+mod day_10;
 
 pub fn run() {
     println!("Starting Advent of Code 2022");
@@ -38,4 +40,6 @@ pub fn run() {
     day_08::run();
     #[cfg(feature = "2022_09")]
     day_09::run();
+    #[cfg(feature = "2022_10")]
+    day_10::run();
 }
