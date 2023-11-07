@@ -1,7 +1,4 @@
-use std::{
-    collections::{HashMap, HashSet},
-    fs,
-};
+use std::{collections::HashMap, fs};
 
 const DAY: usize = 10;
 
@@ -115,7 +112,7 @@ impl Instruction for Noop {
     }
 
     fn to_string(&self) -> String {
-        format!("NOOP")
+        "NOOP".to_string()
     }
 }
 

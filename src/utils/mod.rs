@@ -4,6 +4,7 @@ use std::fs;
 pub enum InputError {
     DownloadError,
     FilesystemError,
+    SessionTokenNotSet,
 }
 
 pub fn get_input(year: usize, day: usize) -> Result<String, InputError> {
@@ -14,7 +15,7 @@ pub fn get_input(year: usize, day: usize) -> Result<String, InputError> {
             let url = format!("https://adventofcode.com/{}/day/{}/input", year, day);
             let session_key = match std::env::var("SESSION_TOKEN") {
                 Ok(key) => key,
-                Err(_) => return Err(InputError::DownloadError),
+                Err(_) => return Err(InputError::SessionTokenNotSet),
             };
             let client = reqwest::blocking::Client::new();
             let input = match client
@@ -24,7 +25,7 @@ pub fn get_input(year: usize, day: usize) -> Result<String, InputError> {
             {
                 Ok(download) => match download.text() {
                     Ok(text) => {
-                        fs::write(&path, &text.trim_end()).unwrap();
+                        fs::write(&path, text.trim_end()).unwrap();
                         Ok(text.trim_end().to_string())
                     }
                     Err(_) => Err(InputError::DownloadError),

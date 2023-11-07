@@ -1,3 +1,8 @@
+use std::{
+    cell::{RefCell, Ref},
+    rc::Rc,
+};
+
 use crate::utils::get_input;
 
 const YEAR: usize = 2022;
@@ -6,18 +11,18 @@ const DAY: usize = 11;
 #[allow(dead_code)]
 pub fn run() {
     println!("Day {:02}", DAY);
-    let path = format!("input/2022/day_{:02}.txt", DAY);
     let input = get_input(YEAR, DAY).unwrap();
     println!("The result of part 1 is: {}", part1(&input));
     println!("The result of part 2 is: {}", part2(&input));
 }
 
 struct MonkeyGang {
-    monkeys: Vec<Monkey>,
+    monkeys: Vec<Rc<RefCell<Monkey>>>,
 }
 
 impl MonkeyGang {
     fn new(input: &str) -> MonkeyGang {
+        let mut monkeys = vec![];
         let monkey_strings = input.split("\n\n");
         for monkey_string in monkey_strings {
             let mut lines = monkey_string.split('\n');
@@ -74,31 +79,59 @@ impl MonkeyGang {
                 "Div: {}, true target: {}, false target: {}",
                 test_divider, true_monkey_target, false_monkey_target
             );
+            monkeys.push(Rc::new(RefCell::new(Monkey::new(
+                items,
+                test_divider,
+                operation,
+            ))));
+        }
+        let gang = MonkeyGang { monkeys };
+        gang
+    }
+
+    fn make_round(&mut self) {
+        for m in &self.monkeys {
+            let mut monkey = m.as_ref().borrow_mut();
+            monkey.turn();
         }
         todo!()
     }
 
-    fn make_round(&mut self) {
-        for mut m in self.monkeys {
-            m.turn();
-        }
-        todo!()
+    fn run(&mut self) {
+        
     }
 
     fn get_monkey_business(&self, amount: usize) -> usize {
         let mut test = self.monkeys.clone();
-        test.sort_by(|a, b| a.inspection_count.cmp(&b.inspection_count));
+        test.sort_by(|a, b| {
+            a.as_ref()
+                .borrow()
+                .inspection_count
+                .cmp(&b.as_ref().borrow().inspection_count)
+        });
         let test2 = test
             .iter()
             .take(amount)
-            .map(|x| x.inspection_count)
+            .map(|x| x.as_ref().borrow().inspection_count)
             .product();
         test2
     }
 
     fn print_inspections(&self) {
         for (i, m) in self.monkeys.iter().enumerate() {
-            println!("Monkey {:02} inspected {:04} items", i, m.inspection_count);
+            println!(
+                "Monkey {:02} inspected {:04} items",
+                i,
+                m.as_ref().borrow().inspection_count
+            );
+        }
+    }
+
+    fn update_monkeys(gang: Rc<RefCell<MonkeyGang>>) {
+        let monkey_gang = gang.borrow_mut();
+        for monkey in &monkey_gang.monkeys {
+            let mut m = monkey.borrow_mut();
+            m.monkey_gang = Some(gang.clone());
         }
     }
 }
@@ -121,6 +154,7 @@ struct Monkey {
     inspection_count: usize,
     test_divider: usize,
     operation: Operation,
+    monkey_gang: Option<Rc<RefCell<MonkeyGang>>>
 }
 
 impl Monkey {
@@ -130,6 +164,7 @@ impl Monkey {
             inspection_count: 0,
             test_divider,
             operation,
+            monkey_gang: None
         }
     }
 
@@ -178,8 +213,10 @@ impl Item {
 }
 
 pub fn part1(input: &str) -> usize {
-    let gang = MonkeyGang::new(input);
-    gang.get_monkey_business(2)
+    let gang = Rc::new(RefCell::new(MonkeyGang::new(input)));
+    MonkeyGang::update_monkeys(gang.clone());
+    let x = gang.borrow().get_monkey_business(2);
+    x
 }
 
 pub fn part2(input: &str) -> usize {
@@ -190,7 +227,7 @@ pub fn part2(input: &str) -> usize {
 mod tests {
     use super::*;
     use std::fs;
-    
+
     #[test]
     fn part1_test1() {
         let path = format!("input/2022/day_{:02}_test_01.txt", DAY);
