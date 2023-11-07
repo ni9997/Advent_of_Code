@@ -1,12 +1,13 @@
-use std::fs;
+use crate::utils::get_input;
 
+const YEAR: usize = 2022;
 const DAY: usize = 11;
 
 #[allow(dead_code)]
 pub fn run() {
     println!("Day {:02}", DAY);
     let path = format!("input/2022/day_{:02}.txt", DAY);
-    let input = fs::read_to_string(path).expect("Wo Datei?");
+    let input = get_input(YEAR, DAY).unwrap();
     println!("The result of part 1 is: {}", part1(&input));
     println!("The result of part 2 is: {}", part2(&input));
 }
@@ -188,7 +189,8 @@ pub fn part2(input: &str) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    use std::fs;
+    
     #[test]
     fn part1_test1() {
         let path = format!("input/2022/day_{:02}_test_01.txt", DAY);
