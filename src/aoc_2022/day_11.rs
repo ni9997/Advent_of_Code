@@ -1,5 +1,5 @@
 use std::{
-    cell::{RefCell, Ref},
+    cell::{Ref, RefCell},
     rc::Rc,
 };
 
@@ -34,9 +34,7 @@ impl MonkeyGang {
                 .expect("Not properly formattet input")
                 .replace("  Starting items: ", "")
                 .split(", ")
-                .map(|x| Item {
-                    worry_level: x.parse::<i32>().unwrap(),
-                })
+                .map(|x| Item::new(x.parse::<i32>().unwrap()))
                 .collect::<Vec<Item>>();
             println!("{:?}", items);
             let op_line = lines
@@ -97,8 +95,10 @@ impl MonkeyGang {
         todo!()
     }
 
-    fn run(&mut self) {
-        
+    fn run(&mut self, rounds: usize) {
+        for _ in 0..rounds {
+            self.make_round();
+        }
     }
 
     fn get_monkey_business(&self, amount: usize) -> usize {
@@ -154,7 +154,7 @@ struct Monkey {
     inspection_count: usize,
     test_divider: usize,
     operation: Operation,
-    monkey_gang: Option<Rc<RefCell<MonkeyGang>>>
+    monkey_gang: Option<Rc<RefCell<MonkeyGang>>>,
 }
 
 impl Monkey {
@@ -164,11 +164,16 @@ impl Monkey {
             inspection_count: 0,
             test_divider,
             operation,
-            monkey_gang: None
+            monkey_gang: None,
         }
     }
 
-    fn turn(&mut self) {}
+    fn turn(&mut self) {
+        while !self.items.is_empty() {
+            let mut current_item = self.items.pop().unwrap();
+            current_item.process_inspection(&self.operation);
+        }
+    }
 
     fn throw(item: Item, monkey: Monkey) {
         todo!()
@@ -215,7 +220,9 @@ impl Item {
 pub fn part1(input: &str) -> usize {
     let gang = Rc::new(RefCell::new(MonkeyGang::new(input)));
     MonkeyGang::update_monkeys(gang.clone());
-    let x = gang.borrow().get_monkey_business(2);
+    let mut temp = gang.borrow_mut();
+    temp.run(20);
+    let x = temp.get_monkey_business(2);
     x
 }
 
