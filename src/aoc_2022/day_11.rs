@@ -88,13 +88,15 @@ impl MonkeyGang {
             ))));
         }
         let mod_val = match mod_enable {
-            true => {
-                monkeys.iter().map(|x|x.borrow().test_divider).product()
-            },
-            false => {0},
+            true => monkeys.iter().map(|x| x.borrow().test_divider).product(),
+            false => 0,
         };
         // println!("Mod Val: {}", mod_val);
-        MonkeyGang { monkeys, mod_val, mod_enable }
+        MonkeyGang {
+            monkeys,
+            mod_val,
+            mod_enable,
+        }
     }
 
     fn make_round(&self) {
@@ -197,14 +199,14 @@ impl Monkey {
                     let test2 = &test.monkeys;
                     let test3 = test2[self.true_monkey_target].clone();
                     Self::throw(current_item, test3);
-                },
+                }
                 DivisibleResult::False => {
                     let monkeys = self.monkey_gang.clone().unwrap().clone();
                     let test = monkeys.borrow();
                     let test2 = &test.monkeys;
                     let test3: Rc<RefCell<Monkey>> = test2[self.false_monkey_target].clone();
                     Self::throw(current_item, test3);
-                },
+                }
             }
         }
     }
@@ -224,12 +226,15 @@ impl Monkey {
 #[derive(Clone, Copy, Debug)]
 struct Item {
     worry_level: DividerType,
-    divider: DividerType
+    divider: DividerType,
 }
 
 impl Item {
     fn new(worry_level: DividerType, divider: DividerType) -> Item {
-        Item { worry_level, divider }
+        Item {
+            worry_level,
+            divider,
+        }
     }
 
     fn process_inspection(&mut self, operation: &Operation, mod_enable: &bool, mod_val: &usize) {
@@ -256,7 +261,7 @@ pub fn part1(input: &str) -> usize {
     MonkeyGang::update_monkeys(gang.clone());
     let temp = gang.borrow();
     temp.run(20);
-    
+
     temp.get_monkey_business(2)
 }
 
@@ -265,7 +270,7 @@ pub fn part2(input: &str) -> usize {
     MonkeyGang::update_monkeys(gang.clone());
     let temp = gang.borrow();
     temp.run(10_000);
-    
+
     temp.get_monkey_business(2)
 }
 
