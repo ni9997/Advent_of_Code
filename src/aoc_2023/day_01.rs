@@ -3,6 +3,24 @@ use crate::utils::get_input;
 const YEAR: usize = 2023;
 const DAY: usize = 1;
 
+fn get_first_digit(input: &str) -> char {
+    for c in input.chars() {
+        if c >= '0' && c <= '9' {
+            return c;
+        }
+    }
+    panic!("No digit found!");
+}
+
+fn get_last_digit(input: &str) -> char {
+    for c in input.chars().rev() {
+        if c >= '0' && c <= '9' {
+            return c;
+        }
+    }
+    panic!("No digit found!");
+}
+
 #[allow(dead_code)]
 pub fn run() {
     println!("Day {:02}", DAY);
@@ -12,24 +30,6 @@ pub fn run() {
 }
 
 pub fn part1(input: &str) -> usize {
-    fn get_first_digit(input: &str) -> char {
-        for c in input.chars() {
-            if c >= '0' && c <= '9' {
-                return c;
-            }
-        }
-        panic!("No digit found!");
-    }
-
-    fn get_last_digit(input: &str) -> char {
-        for c in input.chars().rev() {
-            if c >= '0' && c <= '9' {
-                return c;
-            }
-        }
-        panic!("No digit found!");
-    }
-
     let mut sum = 0;
 
     for l in input.lines() {
@@ -42,7 +42,27 @@ pub fn part1(input: &str) -> usize {
 }
 
 pub fn part2(input: &str) -> usize {
-    todo!()
+    let mut sum = 0;
+
+    let repl_input = input
+        .replace("zero", "zero0zero")
+        .replace("one", "one1one")
+        .replace("two", "two2two")
+        .replace("three", "three3three")
+        .replace("four", "four4four")
+        .replace("five", "five5five")
+        .replace("six", "six6six")
+        .replace("seven", "seven7seven")
+        .replace("eight", "eight8eight")
+        .replace("nine", "nine9nine");
+
+    for l in repl_input.lines() {
+        sum += format!("{}{}", get_first_digit(l), get_last_digit(l))
+            .parse::<usize>()
+            .unwrap();
+    }
+
+    sum
 }
 
 #[cfg(test)]
