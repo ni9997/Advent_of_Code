@@ -1,6 +1,7 @@
 pub mod aoc_2015;
 pub mod aoc_2016;
 pub mod aoc_2022;
+pub mod aoc_2023;
 pub mod utils;
 
 pub fn run() {
@@ -10,4 +11,6 @@ pub fn run() {
     aoc_2016::run();
     #[cfg(feature = "2022_base")]
     aoc_2022::run();
+    #[cfg(feature = "2023_base")]
+    aoc_2023::run();
 }

@@ -27,7 +27,6 @@ struct PacketPair {
 }
 
 fn compare(left: &Vec<PacketData>, right: &Vec<PacketData>) -> bool {
-
     todo!()
 }
 
