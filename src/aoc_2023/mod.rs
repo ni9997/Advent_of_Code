@@ -1,8 +1,8 @@
 #[allow(unused_variables)]
 #[cfg(feature = "2023_01")]
 mod day_01;
-// #[cfg(feature = "2023_02")]
-// mod day_02;
+#[cfg(feature = "2023_02")]
+mod day_02;
 // #[cfg(feature = "2023_03")]
 // mod day_03;
 // #[cfg(feature = "2023_04")]
@@ -30,8 +30,8 @@ pub fn run() {
     println!("Starting Advent of Code 2023");
     #[cfg(feature = "2023_01")]
     day_01::run();
-    // #[cfg(feature = "2023_02")]
-    // day_02::run();
+    #[cfg(feature = "2023_02")]
+    day_02::run();
     // #[cfg(feature = "2023_03")]
     // day_03::run();
     // #[cfg(feature = "2023_04")]

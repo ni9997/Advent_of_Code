@@ -5,7 +5,7 @@ const DAY: usize = 1;
 
 fn get_first_digit(input: &str) -> char {
     for c in input.chars() {
-        if c >= '0' && c <= '9' {
+        if c.is_ascii_digit() {
             return c;
         }
     }
@@ -14,7 +14,7 @@ fn get_first_digit(input: &str) -> char {
 
 fn get_last_digit(input: &str) -> char {
     for c in input.chars().rev() {
-        if c >= '0' && c <= '9' {
+        if c.is_ascii_digit() {
             return c;
         }
     }
