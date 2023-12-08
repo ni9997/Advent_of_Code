@@ -5,8 +5,8 @@ mod day_01;
 mod day_02;
 #[cfg(feature = "2023_03")]
 mod day_03;
-// #[cfg(feature = "2023_04")]
-// mod day_04;
+#[cfg(feature = "2023_04")]
+mod day_04;
 // #[cfg(feature = "2023_05")]
 // mod day_05;
 // #[cfg(feature = "2023_06")]
@@ -34,8 +34,8 @@ pub fn run() {
     day_02::run();
     #[cfg(feature = "2023_03")]
     day_03::run();
-    // #[cfg(feature = "2023_04")]
-    // day_04::run();
+    #[cfg(feature = "2023_04")]
+    day_04::run();
     // #[cfg(feature = "2023_05")]
     // day_05::run();
     // #[cfg(feature = "2023_06")]
