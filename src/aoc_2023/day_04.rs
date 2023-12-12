@@ -1,4 +1,4 @@
-use std::collections::{HashSet, HashMap};
+use std::collections::HashSet;
 
 use crate::utils::get_input;
 
@@ -43,33 +43,31 @@ pub fn part1(input: &str) -> usize {
 }
 
 pub fn part2(input: &str) -> usize {
-    let cards: HashMap<usize, usize> = HashMap::new();
-    input
-        .lines()
-        .map(|c| {
-            let mut numbers = c.split(": ").nth(1).unwrap().split(" | ");
-            let own_num: HashSet<usize> = HashSet::from_iter(
-                numbers
-                    .next()
-                    .unwrap()
-                    .split(' ')
-                    .filter(|x| !x.is_empty())
-                    .map(|x| x.parse().unwrap()),
-            );
-            let win_num: HashSet<usize> = HashSet::from_iter(
-                numbers
-                    .next()
-                    .unwrap()
-                    .split(' ')
-                    .filter(|x| !x.is_empty())
-                    .map(|x| x.parse().unwrap()),
-            );
-            match win_num.intersection(&own_num).count() {
-                0 => 0,
-                i => 2_usize.pow(i as u32 - 1),
-            }
-        })
-        .sum()
+    let mut cards: Vec<usize> = vec![1; input.lines().count()];
+    for (i, l) in input.lines().enumerate() {
+        let mut numbers = l.split(": ").nth(1).unwrap().split(" | ");
+        let own_num: HashSet<usize> = HashSet::from_iter(
+            numbers
+                .next()
+                .unwrap()
+                .split(' ')
+                .filter(|x| !x.is_empty())
+                .map(|x| x.parse().unwrap()),
+        );
+        let win_num: HashSet<usize> = HashSet::from_iter(
+            numbers
+                .next()
+                .unwrap()
+                .split(' ')
+                .filter(|x| !x.is_empty())
+                .map(|x| x.parse().unwrap()),
+        );
+
+        for j in i + 1..=i + win_num.intersection(&own_num).count() {
+            cards[j] += cards[i];
+        }
+    }
+    cards.iter().sum()
 }
 
 #[cfg(test)]
