@@ -15,17 +15,29 @@ pub fn run() {
 
 #[derive(Debug)]
 struct Map {
-    source: usize,
-    destination: usize,
-    range: usize,
+    maps: Vec<(usize, usize, usize)>
 }
 
 impl Map {
     fn map(&self, input: usize) -> Option<usize> {
-        if self.source >= input && input < self.source+self.range {
-            return Some(input-self.source+self.destination);
-        }
+        // if self.source >= input && input < self.source+self.range {
+        //     return Some(input-self.source+self.destination);
+        // }
         None
+    }
+
+    fn from_lines(input: &str) -> Map {
+        let mut maps = vec![];
+        for x in input.split('\n').skip(1) {
+            let mut temp = x.split(' ');
+            let destination = temp.next().unwrap().parse().unwrap();
+            let source = temp.next().unwrap().parse().unwrap();
+            let range = temp.next().unwrap().parse().unwrap();
+            maps.push((source, destination, range));
+        }
+        Map {
+            maps
+        }
     }
 }
 
@@ -62,21 +74,23 @@ impl FromStr for Garden {
         .split(' ')
         .map(|x| x.parse().unwrap())
         .collect();
-    let mut s2smap = vec![];
-    for x in input.next().unwrap().split('\n').skip(1) {
-        let mut temp = x.split(' ');
-        let destination = temp.next().unwrap().parse().unwrap();
-        let source = temp.next().unwrap().parse().unwrap();
-        let range = temp.next().unwrap().parse().unwrap();
-        let map = Map {
-            source,
-            destination,
-            range,
-        };
-        s2smap.push(map);
-    }
-    println!("{:?}", seeds);
-    todo!()
+    let seed_to_soil_map = Map::from_lines(input.next().unwrap());
+    let soil_to_fetilizer_map = Map::from_lines(input.next().unwrap());
+    let fetilizer_to_water_map = Map::from_lines(input.next().unwrap());
+    let water_to_light_map = Map::from_lines(input.next().unwrap());
+    let light_to_temperature_map = Map::from_lines(input.next().unwrap());
+    let temperature_to_humidity_map = Map::from_lines(input.next().unwrap());
+    let humidity_to_location_map = Map::from_lines(input.next().unwrap());
+    Ok(Garden {
+        seed_to_soil_map,
+        soil_to_fetilizer_map,
+        fetilizer_to_water_map,
+        water_to_light_map,
+        light_to_temperature_map,
+        temperature_to_humidity_map,
+        humidity_to_location_map,
+        seeds
+    })
     }
 }
 
