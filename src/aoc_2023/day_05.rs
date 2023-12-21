@@ -1,9 +1,12 @@
-use std::str::FromStr;
-
 use crate::utils::get_input;
 
 const YEAR: usize = 2023;
 const DAY: usize = 5;
+
+enum Part {
+    One,
+    Two,
+}
 
 #[allow(dead_code)]
 pub fn run() {
@@ -15,15 +18,17 @@ pub fn run() {
 
 #[derive(Debug)]
 struct Map {
-    maps: Vec<(usize, usize, usize)>
+    maps: Vec<(usize, usize, usize)>,
 }
 
 impl Map {
-    fn map(&self, input: usize) -> Option<usize> {
-        // if self.source >= input && input < self.source+self.range {
-        //     return Some(input-self.source+self.destination);
-        // }
-        None
+    fn map(&self, input: usize) -> usize {
+        for (source, destination, range) in &self.maps {
+            if input >= *source && input < source + range {
+                return input - source + destination;
+            }
+        }
+        input
     }
 
     fn from_lines(input: &str) -> Map {
@@ -35,9 +40,8 @@ impl Map {
             let range = temp.next().unwrap().parse().unwrap();
             maps.push((source, destination, range));
         }
-        Map {
-            maps
-        }
+        // println!("{:?}", maps);
+        Map { maps }
     }
 }
 
@@ -55,80 +59,75 @@ struct Garden {
 
 impl Garden {
     fn get_locations(&self) -> Vec<usize> {
-        todo!()
+        self.seeds
+            .iter()
+            .map(|x| self.seed_to_soil_map.map(*x))
+            .map(|x| self.soil_to_fetilizer_map.map(x))
+            .map(|x| self.fetilizer_to_water_map.map(x))
+            .map(|x| self.water_to_light_map.map(x))
+            .map(|x| self.light_to_temperature_map.map(x))
+            .map(|x| self.temperature_to_humidity_map.map(x))
+            .map(|x| self.humidity_to_location_map.map(x))
+            .collect()
+    }
+
+    fn from_str(input: &str, part: Part) -> Result<Garden, GardenParseError> {
+        let mut input = input.split("\n\n");
+        let seeds: Vec<usize> = match part {
+            Part::One => input
+                .next()
+                .unwrap()
+                .replace("seeds: ", "")
+                .split(' ')
+                .map(|x| x.parse().unwrap())
+                .collect(),
+            Part::Two => {
+                let mut seeds = vec![];
+                let seed_line = input.next().unwrap().replace("seeds: ", "");
+                let mut split = seed_line.split(' ');
+                while let Some(begin) = split.next() {
+                    let start: usize = begin.parse().unwrap();
+                    let lenght: usize = split.next().unwrap().parse().unwrap();
+                    for i in 0..lenght {
+                        seeds.push(start + i);
+                    }
+                }
+
+                seeds
+            }
+        };
+        println!("LEN Seeds: {}", seeds.len());
+        let seed_to_soil_map = Map::from_lines(input.next().unwrap());
+        let soil_to_fetilizer_map = Map::from_lines(input.next().unwrap());
+        let fetilizer_to_water_map = Map::from_lines(input.next().unwrap());
+        let water_to_light_map = Map::from_lines(input.next().unwrap());
+        let light_to_temperature_map = Map::from_lines(input.next().unwrap());
+        let temperature_to_humidity_map = Map::from_lines(input.next().unwrap());
+        let humidity_to_location_map = Map::from_lines(input.next().unwrap());
+        Ok(Garden {
+            seed_to_soil_map,
+            soil_to_fetilizer_map,
+            fetilizer_to_water_map,
+            water_to_light_map,
+            light_to_temperature_map,
+            temperature_to_humidity_map,
+            humidity_to_location_map,
+            seeds,
+        })
     }
 }
 
 #[derive(Debug)]
 struct GardenParseError;
 
-impl FromStr for Garden {
-    type Err = GardenParseError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut input = s.split("\n\n");
-    let seeds: Vec<usize> = input
-        .next()
-        .unwrap()
-        .replace("seeds: ", "")
-        .split(' ')
-        .map(|x| x.parse().unwrap())
-        .collect();
-    let seed_to_soil_map = Map::from_lines(input.next().unwrap());
-    let soil_to_fetilizer_map = Map::from_lines(input.next().unwrap());
-    let fetilizer_to_water_map = Map::from_lines(input.next().unwrap());
-    let water_to_light_map = Map::from_lines(input.next().unwrap());
-    let light_to_temperature_map = Map::from_lines(input.next().unwrap());
-    let temperature_to_humidity_map = Map::from_lines(input.next().unwrap());
-    let humidity_to_location_map = Map::from_lines(input.next().unwrap());
-    Ok(Garden {
-        seed_to_soil_map,
-        soil_to_fetilizer_map,
-        fetilizer_to_water_map,
-        water_to_light_map,
-        light_to_temperature_map,
-        temperature_to_humidity_map,
-        humidity_to_location_map,
-        seeds
-    })
-    }
-}
-
-fn seed_to_soil(seed: usize) -> usize {
-    todo!()
-}
-
-fn soil_to_fetilizer(soil: usize) -> usize {
-    todo!()
-}
-
-fn fetilizer_to_water(fertilizer: usize) -> usize {
-    todo!()
-}
-
-fn water_to_light(water: usize) -> usize {
-    todo!()
-}
-
-fn light_to_temperature(light: usize) -> usize {
-    todo!()
-}
-
-fn temperature_to_humidity(temperature: usize) -> usize {
-    todo!()
-}
-
-fn humidity_to_location(humidity: usize) -> usize {
-    todo!()
-}
-
 pub fn part1(input: &str) -> usize {
-    let garden = input.parse::<Garden>().unwrap();
+    let garden = Garden::from_str(input, Part::One).unwrap();
     *garden.get_locations().iter().min().unwrap()
 }
 
 pub fn part2(input: &str) -> usize {
-    todo!()
+    let garden = Garden::from_str(input, Part::Two).unwrap();
+    *garden.get_locations().iter().min().unwrap()
 }
 
 #[cfg(test)]
@@ -149,6 +148,6 @@ mod tests {
         let path = format!("input/{}/day_{:02}_test_01.txt", YEAR, DAY);
         let input = fs::read_to_string(path).expect("Wo Datei?");
         let t = part2(&input);
-        assert_eq!(t, 30);
+        assert_eq!(t, 46);
     }
 }
