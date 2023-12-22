@@ -1,3 +1,5 @@
+use itertools::Itertools;
+
 use crate::utils::get_input;
 
 const YEAR: usize = 2023;
@@ -16,9 +18,50 @@ pub fn run() {
     println!("The result of part 2 is: {}", part2(&input));
 }
 
-#[derive(Debug)]
+struct MapIntoIter {
+    map: Map,
+    map_index: usize,
+    location_index: usize,
+}
+
+impl Iterator for MapIntoIter {
+    type Item = usize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        // println!("Map Index: {}\nLocation Index: {}", self.map_index, self.location_index);
+        if self.location_index < self.map.maps[self.map_index].2 {
+            self.location_index += 1;
+            Some(self.map.maps[self.map_index].1 + self.location_index - 1)
+        } else {
+            self.map_index += 1;
+            self.location_index = 0;
+            if self.map_index < self.map.maps.len() {
+                Some(self.map.maps[self.map_index].1 + self.location_index)
+            } else {
+                None
+            }
+        }
+        // result
+    }
+}
+
+#[derive(Debug, Clone)]
 struct Map {
     maps: Vec<(usize, usize, usize)>,
+}
+
+impl IntoIterator for Map {
+    type Item = usize;
+
+    type IntoIter = MapIntoIter;
+
+    fn into_iter(self) -> Self::IntoIter {
+        Self::IntoIter {
+            map: self,
+            map_index: 0,
+            location_index: 0,
+        }
+    }
 }
 
 impl Map {
@@ -45,9 +88,10 @@ impl Map {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Garden {
     seeds: Vec<usize>,
+    seed_maps: Option<Map>,
     seed_to_soil_map: Map,
     soil_to_fetilizer_map: Map,
     fetilizer_to_water_map: Map,
@@ -71,8 +115,24 @@ impl Garden {
             .collect()
     }
 
+    fn get_location(&self, seed: usize) -> usize {
+        self.humidity_to_location_map.map(
+            self.temperature_to_humidity_map.map(
+                self.light_to_temperature_map.map(
+                    self.water_to_light_map.map(
+                        self.fetilizer_to_water_map.map(
+                            self.soil_to_fetilizer_map
+                                .map(self.seed_to_soil_map.map(seed)),
+                        ),
+                    ),
+                ),
+            ),
+        )
+    }
+
     fn from_str(input: &str, part: Part) -> Result<Garden, GardenParseError> {
         let mut input = input.split("\n\n");
+        let mut seed_map = None;
         let seeds: Vec<usize> = match part {
             Part::One => input
                 .next()
@@ -82,21 +142,26 @@ impl Garden {
                 .map(|x| x.parse().unwrap())
                 .collect(),
             Part::Two => {
-                let mut seeds = vec![];
-                let seed_line = input.next().unwrap().replace("seeds: ", "");
-                let mut split = seed_line.split(' ');
-                while let Some(begin) = split.next() {
-                    let start: usize = begin.parse().unwrap();
-                    let lenght: usize = split.next().unwrap().parse().unwrap();
-                    for i in 0..lenght {
-                        seeds.push(start + i);
-                    }
-                }
-
-                seeds
+                seed_map = Some(Map {
+                    maps: input
+                        .next()
+                        .unwrap()
+                        .replace("seeds: ", "")
+                        .split(' ')
+                        .chunks(2)
+                        .into_iter()
+                        .map(|mut a| {
+                            let start = a.next().unwrap().parse().unwrap();
+                            let range = a.next().unwrap().parse().unwrap();
+                            (start, start, range)
+                        })
+                        .collect(),
+                });
+                vec![]
             }
         };
-        println!("LEN Seeds: {}", seeds.len());
+        // println!("LEN Seeds: {}", seeds.len());
+        // println!("{:?}", seed_map);
         let seed_to_soil_map = Map::from_lines(input.next().unwrap());
         let soil_to_fetilizer_map = Map::from_lines(input.next().unwrap());
         let fetilizer_to_water_map = Map::from_lines(input.next().unwrap());
@@ -113,6 +178,7 @@ impl Garden {
             temperature_to_humidity_map,
             humidity_to_location_map,
             seeds,
+            seed_maps: seed_map,
         })
     }
 }
@@ -127,7 +193,14 @@ pub fn part1(input: &str) -> usize {
 
 pub fn part2(input: &str) -> usize {
     let garden = Garden::from_str(input, Part::Two).unwrap();
-    *garden.get_locations().iter().min().unwrap()
+    let mut minimum = usize::MAX;
+    for seed in garden.clone().seed_maps.unwrap() {
+        let location = garden.get_location(seed);
+        if location < minimum {
+            minimum = location;
+        }
+    }
+    minimum
 }
 
 #[cfg(test)]
