@@ -78,9 +78,27 @@ pub fn part1(input: &str) -> usize {
                     current_y -= 1;
                 }
             },
-            Pipe::NorthWest => todo!(),
-            Pipe::SouthEast => todo!(),
-            Pipe::SouthWest => todo!(),
+            Pipe::NorthWest => {
+                if last_y.unwrap() > current_y {
+                    current_x -= 1;
+                } else {
+                    current_y -= 1;
+                }
+            },
+            Pipe::SouthEast => {
+                if last_y.unwrap() < current_y {
+                    current_x += 1;
+                } else {
+                    current_y += 1;
+                }
+            },
+            Pipe::SouthWest => {
+                if last_y.unwrap() < current_y {
+                    current_x += 1;
+                } else {
+                    current_y += 1;
+                }
+            },
             Pipe::Start => todo!(),
         };
         last_x = Some(current_x);
