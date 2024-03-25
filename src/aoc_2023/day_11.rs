@@ -1,4 +1,4 @@
-use std::{fmt::Display, str::FromStr};
+use std::{collections::HashSet, fmt::Display, str::FromStr};
 
 use crate::utils::get_input;
 
@@ -13,29 +13,52 @@ pub fn run() {
     println!("The result of part 2 is: {}", part2(&input));
 }
 
-struct Galaxy {
-    map: Vec<Vec<bool>>
+struct Universe {
+    map: Vec<Vec<bool>>,
 }
 
-impl Galaxy {
+impl Universe {
     fn expand(&mut self) {
-        
+        for r in (0..self.map.len()).rev() {
+            if self.get_row(r).iter().all(|x|!x) {
+                self.insert_row(r);
+            }
+        }
+        for c in (0..self.map[0].len()).rev() {
+            if self.get_col(c).iter().all(|x|!x) {
+                self.insert_col(c);
+            }
+        }
     }
 
     fn insert_row(&mut self, index: usize) {
-
+        self.map.insert(index, vec![false; self.map[0].len()]);
     }
 
     fn insert_col(&mut self, index: usize) {
+        for r in self.map.iter_mut() {
+            r.insert(index, false);
+        }
+    }
 
+    fn get_col(&self, index: usize) -> Vec<bool> {
+        let mut v = vec![];
+        for c in &self.map {
+            v.push(c[index]);
+        }
+        v
+    }
+
+    fn get_row(&self, index: usize) -> Vec<bool> {
+        self.map[index].clone()
     }
 }
 
 #[derive(Debug)]
-struct GalaxyParseError;
+struct UniverseParseError;
 
-impl FromStr for Galaxy {
-    type Err = GalaxyParseError;
+impl FromStr for Universe {
+    type Err = UniverseParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut map = vec![];
@@ -54,7 +77,7 @@ impl FromStr for Galaxy {
     }
 }
 
-impl Display for Galaxy {
+impl Display for Universe {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for l in &self.map {
             for r in l {
@@ -70,7 +93,9 @@ impl Display for Galaxy {
 }
 
 pub fn part1(input: &str) -> usize {
-    let mut galaxy: Galaxy = input.parse().unwrap();
+    let mut galaxy: Universe = input.parse().unwrap();
+
+    galaxy.expand();
 
     println!("{}", galaxy);
 
