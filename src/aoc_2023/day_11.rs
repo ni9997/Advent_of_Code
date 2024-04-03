@@ -1,5 +1,5 @@
 use itertools::Itertools;
-use std::{collections::HashSet, fmt::Display, str::FromStr};
+use std::{fmt::Display, str::FromStr};
 
 use crate::utils::get_input;
 
@@ -36,8 +36,8 @@ impl Universe {
         }
 
         for g in self.galaxies.iter_mut() {
-            g.0 += empty_rows.iter().filter(|x| **x < g.0).count() * size;
-            g.1 += empty_cols.iter().filter(|x| **x < g.1).count() * size;
+            g.0 += empty_rows.iter().filter(|x| **x < g.0).count() * (size - 1);
+            g.1 += empty_cols.iter().filter(|x| **x < g.1).count() * (size - 1);
         }
     }
 
@@ -103,7 +103,7 @@ impl Display for Universe {
                     false => write!(f, ".")?,
                 }
             }
-            writeln!(f, "")?;
+            writeln!(f)?;
         }
         Ok(())
     }
@@ -116,7 +116,7 @@ fn get_distance(u1: (usize, usize), u2: (usize, usize)) -> usize {
 pub fn part1(input: &str) -> usize {
     let mut universe: Universe = input.parse().unwrap();
 
-    universe.expand(1);
+    universe.expand(2);
 
     let d_twice: usize = universe
         .galaxies
