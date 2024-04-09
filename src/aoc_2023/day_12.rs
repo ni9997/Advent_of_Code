@@ -1,6 +1,3 @@
-use itertools::Itertools;
-use std::{fmt::Display, str::FromStr};
-
 use crate::utils::get_input;
 
 const YEAR: usize = 2023;
@@ -14,8 +11,15 @@ pub fn run() {
     println!("The result of part 2 is: {}", part2(&input));
 }
 
-pub fn part1(input: &str) -> usize {
+fn count_arrangements(input: &str) -> usize {
+    let mut input = input.split(' ');
+    let left = input.next().unwrap();
+    let right = input.next().unwrap();
     todo!()
+}
+
+pub fn part1(input: &str) -> usize {
+    input.split('\n').map(count_arrangements).sum()
 }
 
 pub fn part2(input: &str) -> usize {
@@ -32,7 +36,7 @@ mod tests {
         let path = format!("input/{}/day_{:02}_test_01.txt", YEAR, DAY);
         let input = fs::read_to_string(path).expect("Wo Datei?");
         let t = part1(&input);
-        assert_eq!(t, 374);
+        assert_eq!(t, 21);
     }
 
     #[test]
