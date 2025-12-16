@@ -54,6 +54,7 @@ pub fn part1(input: &str) -> usize {
     let mut current_y = start_y.unwrap();
     let mut last_x = None;
     let mut last_y = None;
+    let mut starts_visited = 0;
     while let Some(pipe) = &grid[current_x][current_y] {
         route.push((current_x, current_y));
         match pipe {
@@ -99,7 +100,14 @@ pub fn part1(input: &str) -> usize {
                     current_y += 1;
                 }
             }
-            Pipe::Start => todo!(),
+            Pipe::Start => {
+                starts_visited += 1;
+                if starts_visited > 1 {
+                    break;
+                } else {
+                    // Check top
+                }
+            }
         };
         last_x = Some(current_x);
         last_y = Some(current_y);
